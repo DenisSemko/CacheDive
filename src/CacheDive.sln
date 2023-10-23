@@ -1,0 +1,21 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{9273B865-A1C1-4DE4-8B38-7E0D8DD55E65}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConfigAgent.API", "Services\ConfigAgent.API\ConfigAgent.API.csproj", "{75FE387F-EF53-47BB-A920-B610F5AFF537}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{75FE387F-EF53-47BB-A920-B610F5AFF537} = {9273B865-A1C1-4DE4-8B38-7E0D8DD55E65}
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{75FE387F-EF53-47BB-A920-B610F5AFF537}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{75FE387F-EF53-47BB-A920-B610F5AFF537}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{75FE387F-EF53-47BB-A920-B610F5AFF537}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{75FE387F-EF53-47BB-A920-B610F5AFF537}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
