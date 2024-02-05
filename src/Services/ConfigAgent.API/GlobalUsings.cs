@@ -1,0 +1,9 @@
+global using System.Net;
+global using ConfigAgent.API.Common;
+global using ConfigAgent.API.Services.Abstract;
+global using ConfigAgent.API.Services.Concrete;
+global using EventBus.Messages.Events;
+global using MassTransit;
+global using Microsoft.AspNetCore.Mvc;
+global using Newtonsoft.Json;
+global using Newtonsoft.Json.Linq;

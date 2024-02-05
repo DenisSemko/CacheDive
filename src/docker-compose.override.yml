@@ -1,0 +1,39 @@
+version: '3.4'
+
+services:
+  sqlserverdb:
+    container_name: sqlserverdb
+    environment:
+      SA_PASSWORD: "mcbv3n12!"
+      ACCEPT_EULA: "Y"
+    restart: always
+    ports:
+      - "1433:1433"
+    volumes:
+      - sqlserver-db:/var/opt/mssql
+  
+  rabbitmq:
+    container_name: rabbitmq
+    restart: always
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+
+  sqlserveragent.api:
+    container_name: sqlserveragent.api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "ConnectionStrings:DefaultConnection=Server=sqlserverdb;Database=CacheDiveSQLServerDb;User Id=sa;Password=mcbv3n12!;TrustServerCertificate=True;"
+      - "EventBusSettings:HostAddress=amqp://guest:guest@rabbitmq:5672"
+    restart: always
+    ports:
+      - "8000:80"
+
+  configagent.api:
+    container_name: configagent.api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "EventBusSettings:HostAddress=amqp://guest:guest@rabbitmq:5672"
+    restart: always
+    ports:
+      - "8001:80"

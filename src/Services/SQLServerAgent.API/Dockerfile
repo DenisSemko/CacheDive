@@ -1,0 +1,21 @@
+﻿FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS base
+WORKDIR /app
+EXPOSE 80
+
+FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
+ARG BUILD_CONFIGURATION=Release
+WORKDIR /src
+COPY ["Services/SQLServerAgent.API/SQLServerAgent.API.csproj", "Services/SQLServerAgent.API/"]
+RUN dotnet restore "Services/SQLServerAgent.API/SQLServerAgent.API.csproj"
+COPY . .
+WORKDIR "/src/Services/SQLServerAgent.API"
+RUN dotnet build "SQLServerAgent.API.csproj" -c $BUILD_CONFIGURATION -o /app/build
+
+FROM build AS publish
+ARG BUILD_CONFIGURATION=Release
+RUN dotnet publish "SQLServerAgent.API.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+
+FROM base AS final
+WORKDIR /app
+COPY --from=publish /app/publish .
+ENTRYPOINT ["dotnet", "SQLServerAgent.API.dll"]
