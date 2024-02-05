@@ -1,0 +1,29 @@
+﻿version: '3.4'
+
+services:
+  sqlserverdb:
+    image: mcr.microsoft.com/azure-sql-edge:latest
+  
+  rabbitmq:
+    image: rabbitmq:management
+  
+  sqlserveragent.api:
+    image: sqlserveragent.api
+    build:
+      context: .
+      dockerfile: Services/SQLServerAgent.API/Dockerfile
+    depends_on: 
+      - sqlserverdb
+      - rabbitmq
+
+  configagent.api:
+    image: configagent.api
+    build:
+      context: .
+      dockerfile: Services/ConfigAgent.API/Dockerfile
+    depends_on: 
+      - rabbitmq
+      - sqlserveragent.api
+
+volumes:
+  sqlserver-db:
