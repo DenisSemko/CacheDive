@@ -1,4 +1,4 @@
-namespace SQLServerAgent.API.Models;
+namespace SQLServerAgent.API.Entities;
 
 public class Basket
 {

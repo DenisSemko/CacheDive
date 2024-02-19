@@ -13,7 +13,14 @@ public static class AgentServicesRegistration
         
         services.AddScoped<IJsonToTupleService, JsonToTupleService>();
         
-        services.AddScoped<TransferJsonConsumer>();
+        services.AddScoped<JsonDataConsumer>();
+        
+        services.Configure<DatabaseConfiguration>(configuration.GetSection("ConnectionStrings"));
+        services.AddSingleton<IDatabaseConfiguration>(serviceProvider =>
+            serviceProvider.GetRequiredService<IOptions<DatabaseConfiguration>>().Value);
+        
+        services.AddScoped<IExecutionQueryHelper, ExecutionQueryHelper>();
+        services.AddScoped<IExecutionTimeHelper, ExecutionTimeHelper>();
         
         return services;
     }
