@@ -15,8 +15,8 @@ public class HandleJsonService : IHandleJsonService
     {
         _validateJsonService.IsValidJson(jsonData);
         
-        TransferJsonEvent transferJsonEvent = new() { DatabaseData = jsonData };
+        JsonDataPublishedEvent jsonDataPublishedEvent = new() { DatabaseData = jsonData };
 
-        await _publishEndpoint.Publish<TransferJsonEvent>(transferJsonEvent, cancellationToken);
+        await _publishEndpoint.Publish<JsonDataPublishedEvent>(jsonDataPublishedEvent, cancellationToken);
     }
 }

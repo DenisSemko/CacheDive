@@ -25,9 +25,9 @@ public class GeneralController : Controller
     #region ControllerMethods
     
     [HttpGet]
-    public async Task<ActionResult<Dictionary<Type, List<object>>>> GetAllAsync()
+    public async Task<ActionResult<Dictionary<string, List<object>>>> GetAllAsync()
     {
-        Dictionary<Type, List<object>> result = new();
+        Dictionary<string, List<object>> result = new();
         IReadOnlyList<User> users = await _unitOfWork.Users.GetAllAsync();
         IReadOnlyList<Category> categories = await _unitOfWork.Categories.GetAllAsync();
         IReadOnlyList<Product> products = await _unitOfWork.Products.GetAllAsync();
@@ -38,13 +38,13 @@ public class GeneralController : Controller
 
         if (users.Any() && categories.Any() && products.Any() && baskets.Any() && productBaskets.Any() && orders.Any() && productOrders.Any())
         {
-            result.Add(typeof(User), users.Cast<object>().ToList());
-            result.Add(typeof(Category), categories.Cast<object>().ToList());
-            result.Add(typeof(Product), products.Cast<object>().ToList());
-            result.Add(typeof(Basket), baskets.Cast<object>().ToList());
-            result.Add(typeof(ProductBasket), productBaskets.Cast<object>().ToList());
-            result.Add(typeof(Order), orders.Cast<object>().ToList());
-            result.Add(typeof(ProductOrder), productOrders.Cast<object>().ToList());
+            result.Add(nameof(User), users.Cast<object>().ToList());
+            result.Add(nameof(Category), categories.Cast<object>().ToList());
+            result.Add(nameof(Product), products.Cast<object>().ToList());
+            result.Add(nameof(Basket), baskets.Cast<object>().ToList());
+            result.Add(nameof(ProductBasket), productBaskets.Cast<object>().ToList());
+            result.Add(nameof(Order), orders.Cast<object>().ToList());
+            result.Add(nameof(ProductOrder), productOrders.Cast<object>().ToList());
         }
 
         return result;

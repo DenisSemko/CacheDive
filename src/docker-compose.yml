@@ -7,6 +7,12 @@ services:
   rabbitmq:
     image: rabbitmq:management
   
+  experimentdb:
+    image: postgres
+  
+  pgadmin:
+    image: dpage/pgadmin4
+  
   sqlserveragent.api:
     image: sqlserveragent.api
     build:
@@ -24,6 +30,18 @@ services:
     depends_on: 
       - rabbitmq
       - sqlserveragent.api
+  
+  experimentagent.api:
+    image: experimentagent.api
+    build:
+      context: .
+      dockerfile: Services/ExperimentAgent.API/Dockerfile
+    depends_on:
+      - rabbitmq
+      - sqlserveragent.api
+      - experimentdb
 
 volumes:
   sqlserver-db:
+  experiment-agent-db:
+  pgadmin_data:
