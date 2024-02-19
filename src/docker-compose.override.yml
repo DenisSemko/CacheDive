@@ -4,7 +4,7 @@ services:
   sqlserverdb:
     container_name: sqlserverdb
     environment:
-      SA_PASSWORD: "mcbv3n12!"
+      SA_PASSWORD: ""
       ACCEPT_EULA: "Y"
     restart: always
     ports:
@@ -46,7 +46,7 @@ services:
     container_name: sqlserveragent.api
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - "ConnectionStrings:DefaultConnection=Server=sqlserverdb;Database=CacheDiveSQLServerDb;User Id=sa;Password=mcbv3n12!;TrustServerCertificate=True;"
+      - "ConnectionStrings:DefaultConnection="
       - "EventBusSettings:HostAddress=amqp://guest:guest@rabbitmq:5672"
     restart: always
     ports:
@@ -65,7 +65,7 @@ services:
     container_name: experimentagent.api
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - "ConnectionStrings:DefaultConnection=Server=experimentdb;Database=CacheDiveExperimentDb;User Id=postgres;Password=postgres;Integrated Security=true;Pooling=true"
+      - "ConnectionStrings:DefaultConnection="
       - "EventBusSettings:HostAddress=amqp://guest:guest@rabbitmq:5672"
     restart: always
     ports:
