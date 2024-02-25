@@ -1,0 +1,7 @@
+{
+  "JWT": {
+    "Audience": "",
+    "Issuer": "",
+    "Secret": ""
+  }
+}
