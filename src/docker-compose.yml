@@ -21,6 +21,18 @@ services:
     depends_on: 
       - sqlserverdb
       - rabbitmq
+  
+  redisagent.api:
+    image: redisagent.api
+    build:
+      context: .
+      dockerfile: Services/RedisAgent.API/Dockerfile
+  
+  memcachedagent.api:
+    image: memcachedagent.api
+    build:
+      context: .
+      dockerfile: Services/MemcachedAgent.API/Dockerfile
 
   configagent.api:
     image: configagent.api
@@ -40,6 +52,24 @@ services:
       - rabbitmq
       - sqlserveragent.api
       - experimentdb
+  
+  identityagent.api:
+    image: identityagent.api
+    build:
+      context: .
+      dockerfile: Services/IdentityServer.API/Dockerfile
+    depends_on:
+      - sqlserverdb
+  
+  apigateway:
+    image: apigateway
+    build:
+      context: .
+      dockerfile: ApiGateway/OcelotApiGateway/Dockerfile
+    depends_on:
+      - configagent.api
+      - experimentagent.api
+      - identityagent.api
 
 volumes:
   sqlserver-db:

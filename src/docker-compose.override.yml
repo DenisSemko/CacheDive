@@ -22,8 +22,8 @@ services:
   experimentdb:
     container_name: experimentdb
     environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=
+      - POSTGRES_PASSWORD=
       - POSTGRES_DB=CacheDiveExperimentDb
     restart: always
     ports:
@@ -34,8 +34,8 @@ services:
   pgadmin:
     container_name: pgadmin
     environment:
-      - PGADMIN_DEFAULT_EMAIL=admin@cachedive.com
-      - PGADMIN_DEFAULT_PASSWORD=postgres
+      - PGADMIN_DEFAULT_EMAIL=
+      - PGADMIN_DEFAULT_PASSWORD=
     restart: always
     ports:
       - "5050:80"
@@ -50,7 +50,23 @@ services:
       - "EventBusSettings:HostAddress="
     restart: always
     ports:
-      - "8000:80"
+      - "8001:80"
+
+  redisagent.api:
+    container_name: redisagent.api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    restart: always
+    ports:
+      - "8002:80"
+  
+  memcachedagent.api:
+    container_name: memcachedagent.api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    restart: always
+    ports:
+      - "8003:80"
 
   configagent.api:
     container_name: configagent.api
@@ -59,7 +75,7 @@ services:
       - "EventBusSettings:HostAddress="
     restart: always
     ports:
-      - "8001:80"
+      - "8004:80"
   
   experimentagent.api:
     container_name: experimentagent.api
@@ -69,4 +85,25 @@ services:
       - "EventBusSettings:HostAddress="
     restart: always
     ports:
-      - "8002:80"
+      - "8005:80"
+  
+  identityagent.api:
+    container_name: identityagent.api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "ConnectionStrings:DefaultConnection="
+    restart: always
+    ports:
+      - "8006:80"
+    volumes:
+      - .src/SharedConfig:/app/SharedConfig
+  
+  apigateway:
+    container_name: apigateway
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    restart: always
+    ports:
+      - "8000:80"
+    volumes:
+      - .src/SharedConfig:/app/SharedConfig
