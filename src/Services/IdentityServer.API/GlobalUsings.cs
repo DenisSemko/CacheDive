@@ -10,6 +10,7 @@ global using IdentityServer.API.Common.Response;
 global using IdentityServer.API.Entities;
 global using IdentityServer.API.Mapper.Converters;
 global using IdentityServer.API.Models;
+global using IdentityServer.API.Models.DTOs;
 global using IdentityServer.API.Persistence;
 global using IdentityServer.API.Repository.Abstract;
 global using IdentityServer.API.Repository.Concrete;
