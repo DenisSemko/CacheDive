@@ -13,6 +13,9 @@ services:
   pgadmin:
     image: dpage/pgadmin4
   
+  redisdb:
+    image: redis:alpine
+  
   sqlserveragent.api:
     image: sqlserveragent.api
     build:
@@ -21,13 +24,13 @@ services:
     depends_on: 
       - sqlserverdb
       - rabbitmq
-  
+
   redisagent.api:
     image: redisagent.api
     build:
       context: .
       dockerfile: Services/RedisAgent.API/Dockerfile
-  
+
   memcachedagent.api:
     image: memcachedagent.api
     build:
@@ -42,7 +45,7 @@ services:
     depends_on: 
       - rabbitmq
       - sqlserveragent.api
-  
+
   experimentagent.api:
     image: experimentagent.api
     build:
@@ -52,7 +55,7 @@ services:
       - rabbitmq
       - sqlserveragent.api
       - experimentdb
-  
+
   identityagent.api:
     image: identityagent.api
     build:
@@ -60,7 +63,7 @@ services:
       dockerfile: Services/IdentityServer.API/Dockerfile
     depends_on:
       - sqlserverdb
-  
+
   apigateway:
     image: apigateway
     build:
@@ -75,3 +78,4 @@ volumes:
   sqlserver-db:
   experiment-agent-db:
   pgadmin_data:
+  redis-db:

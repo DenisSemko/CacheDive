@@ -16,7 +16,11 @@ public class GetSqlServerExecutionConsumer : IConsumer<GetSqlServerExecutionRequ
         string query = context.Message.Query;
         
         //clear cache
-        await _executionQueryHelper.ExecuteQuery(Constants.Queries.ClearCacheQuery);
+        if (context.Message.IsCacheCleaned)
+        {
+            await _executionQueryHelper.ExecuteQuery(Constants.Queries.ClearBufferCacheQuery);
+            await _executionQueryHelper.ExecuteQuery(Constants.Queries.ClearProcedureCacheQuery);
+        }
         
         //main query execution
         TimeSpan resultTime = await _executionTimeHelper.MeasureExecutionTime(async () =>

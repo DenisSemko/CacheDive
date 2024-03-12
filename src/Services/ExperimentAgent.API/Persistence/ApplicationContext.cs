@@ -2,12 +2,11 @@ namespace ExperimentAgent.API.Persistence;
 
 public class ApplicationContext : DbContext
 {
-    //dbset
+    public DbSet<ExperimentOutcome> ExperimentOutcomes { get; set; }
     
     
     public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
     {
-        
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

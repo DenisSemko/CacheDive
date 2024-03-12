@@ -7,10 +7,13 @@ public static class AgentServicesRegistration
     {
         services.AddAutoMapper(Assembly.GetExecutingAssembly());
         
-        services.AddScoped<IHandleExperimentRequestService, HandleExperimentRequestService>();
-        
         services.AddEntityFrameworkNpgsql().AddDbContext<ApplicationContext>(options => 
             options.UseNpgsql(configuration.GetConnectionString("DefaultConnection")));
+        
+        services.AddScoped<IHandleExperimentRequestService, HandleExperimentRequestService>();
+        
+        services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
         
         return services;
     }

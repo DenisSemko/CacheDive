@@ -89,6 +89,31 @@ public class AuthController : ControllerBase
    }
    
    /// <summary>
+   /// Logouts user from the system.
+   /// </summary>
+   /// <param name="username">
+   /// User's username.
+   /// </param>
+   /// <returns>
+   /// Returns No Content.
+   /// </returns>
+   [HttpPost]
+   [Route("logout")]
+   [ProducesResponseType(typeof(LoginModel), (int)HttpStatusCode.NoContent)]
+   public async Task<IActionResult> Logout([FromBody] string username)
+   {
+      ApplicationUser user = await _userManager.FindByNameAsync(username);
+      
+      if (user is not null)
+      {
+         Response.Cookies.Delete("Authorization");
+         Response.Cookies.Delete("Refresh");
+      }
+      
+      return NoContent();
+   }
+   
+   /// <summary>
    /// Refreshes user's tokens.
    /// </summary>
    /// <param name="accessToken">

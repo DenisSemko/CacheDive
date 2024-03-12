@@ -47,6 +47,18 @@
   {
     "entity": "Product",
     "data": {
+      "id": "9f81f912-566e-47f0-a12b-038293583e1b",
+      "name": "Apple iPhone 15 Pro Max 256Gb",
+      "description": "The iPhone 15 Pro Max comes with 6.7-inch OLED display with 120Hz refresh rate and Apple's improved A17 Pro processor.",
+      "price": 1199.99,
+      "image": "iphone.png",
+      "quantity": 2000,
+      "categoryId": "31a0d427-fa0f-447e-869b-ddd4a17d4762"
+    }
+  },
+  {
+    "entity": "Product",
+    "data": {
       "id": "59066c5f-e1e3-41f3-8399-457052643611",
       "name": "Apple MacBook Pro M2",
       "description": "The M2 Pro model will launch with a 12-core CPU, up to 19-core GPU, and up to 32GB of unified memory.",

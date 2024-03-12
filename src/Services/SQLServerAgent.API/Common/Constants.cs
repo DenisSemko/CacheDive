@@ -9,7 +9,8 @@ public static class Constants
 
     public static class Queries
     {
-        public const string ClearCacheQuery = "DBCC DROPCLEANBUFFERS;";
+        public const string ClearBufferCacheQuery = "DBCC DROPCLEANBUFFERS;";
+        public const string ClearProcedureCacheQuery = "DBCC FREEPROCCACHE;";
         public const string GetExecutionPlanQuery = @"
                 SELECT deqp.query_plan, dest.text
                 FROM sys.dm_exec_query_stats AS deqs 
