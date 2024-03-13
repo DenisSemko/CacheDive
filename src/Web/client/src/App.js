@@ -5,7 +5,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { Topbar } from "./components/Topbar";
 import { Sidebar } from "./components/Sidebar";
 import { Routes, Route } from "react-router-dom";
-import { Login } from "./pages/Login";
+import { Registration } from "./pages/Registration";
 import { Dashboard } from "./pages/Dashboard";
 
 export const App = () => {
@@ -24,8 +24,8 @@ export const App = () => {
           <main className="content">
             <Topbar setIsSidebar={setIsSidebar} />
             <Routes>
-              <Route path="/" element={<Login setIsSidebar={setIsSidebar} />} />
-              <Route path="/registration" />
+              <Route path="/" />
+              <Route path="/registration" element={<Registration setIsSidebar={setIsSidebar} />} />
               <Route path="/dashboard" element={<Dashboard />}/>
             </Routes>
           </main>

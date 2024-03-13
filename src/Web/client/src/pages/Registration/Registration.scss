@@ -1,0 +1,15 @@
+.registration-container {
+    margin: 20px;
+    text-align: center;
+
+    .form-container {
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
+        align-items: center;
+
+        .input {
+            width: 40%;
+        }
+    }
+}
