@@ -35,12 +35,12 @@ public class UserController : Controller
     /// Returns a List of Users.
     /// </returns>
     [HttpGet]
-    [ProducesResponseType(typeof(IReadOnlyCollection<ApplicationUserDto>), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<IReadOnlyCollection<ApplicationUserDto>>> GetAll()
+    [ProducesResponseType(typeof(List<ApplicationUserDto>), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<List<ApplicationUserDto>>> GetAll()
     {
         IReadOnlyCollection<ApplicationUser> users = await _unitOfWork.ApplicationUsers.GetAllAsync();
 
-        return Ok(_mapper.Map<IReadOnlyCollection<ApplicationUserDto>>(users));
+        return Ok(_mapper.Map<List<ApplicationUserDto>>(users));
     }
     
     /// <summary>

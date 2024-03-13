@@ -6,7 +6,10 @@ import { Topbar } from "./components/Topbar";
 import { Sidebar } from "./components/Sidebar";
 import { Routes, Route } from "react-router-dom";
 import { Registration } from "./pages/Registration";
+import { Login } from "./pages/Login";
 import { Dashboard } from "./pages/Dashboard";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const App = () => {
   const [theme, colorMode] = useMode();
@@ -24,10 +27,11 @@ export const App = () => {
           <main className="content">
             <Topbar setIsSidebar={setIsSidebar} />
             <Routes>
-              <Route path="/" />
-              <Route path="/registration" element={<Registration setIsSidebar={setIsSidebar} />} />
+              <Route path="/" element={<Login setIsSidebar={setIsSidebar} />} />
+              <Route path="/registration" element={<Registration />} />
               <Route path="/dashboard" element={<Dashboard />}/>
             </Routes>
+            <ToastContainer position="top-right" autoClose={5000} />
           </main>
         </div>
       </ThemeProvider>

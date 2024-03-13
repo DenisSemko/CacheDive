@@ -100,9 +100,9 @@ public class AuthController : ControllerBase
    [HttpPost]
    [Route("logout")]
    [ProducesResponseType(typeof(LoginModel), (int)HttpStatusCode.NoContent)]
-   public async Task<IActionResult> Logout([FromBody] string username)
+   public async Task<IActionResult> Logout([FromBody] LogoutModel logoutModel)
    {
-      ApplicationUser user = await _userManager.FindByNameAsync(username);
+      ApplicationUser user = await _userManager.FindByNameAsync(logoutModel.Username);
       
       if (user is not null)
       {

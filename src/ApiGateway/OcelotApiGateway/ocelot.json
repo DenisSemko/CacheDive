@@ -33,7 +33,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": "8006"
+          "Port": "7073"
         }
       ],
       "UpstreamPathTemplate": "/Auth/login",
@@ -45,10 +45,22 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": "8006"
+          "Port": "7073"
         }
       ],
       "UpstreamPathTemplate": "/Auth/registration",
+      "UpstreamHttpMethod": [ "POST" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/Auth/logout",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": "7073"
+        }
+      ],
+      "UpstreamPathTemplate": "/Auth/logout",
       "UpstreamHttpMethod": [ "POST" ]
     }
   ]

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import "./Topbar.scss";
 import { Box, IconButton, useTheme } from "@mui/material";
 import { useContext, useState } from "react";
@@ -10,9 +10,11 @@ import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import SearchIcon from "@mui/icons-material/Search";
+import LoginIcon from '@mui/icons-material/Login';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { useFetch } from "../../hooks/useFetch.js";
 
 
 export const Topbar = ({setIsSidebar}) => {
@@ -21,20 +23,39 @@ export const Topbar = ({setIsSidebar}) => {
   const colorMode = useContext(ColorModeContext);
   const [anchorEl, setAnchorEl] = useState(null);
   const navigate = useNavigate();
+  const location = useLocation();
+  const isLoginPage = location.pathname === '/';
+  const isRegistrationPage = location.pathname === '/registration';
+  const { executeRequest, data, isLoading, error } = useFetch('/Auth/logout');
+  const logoutData = {
+    username: "test"
+  };
 
-  const handleClick = (event) => {
+  const handlePersonClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleClose = () => {
+  const handlePersonClose = () => {
     setAnchorEl(null);
   };
 
-  const handleLogout = () => {
-    // add logout logic
+  const handleLoginClick = () => {
+    window.location.href = "/";
+  };
+
+  const handleLogout = async () => {
+
+    await executeRequest({
+      method: "POST", 
+      url: '/Auth/logout', 
+      headers: { accept: '*/*' }, 
+      data: logoutData
+    });
+
+
     setIsSidebar(false);
     navigate('/');
-    handleClose();
+    handlePersonClose();
   };
 
   return (
@@ -59,16 +80,23 @@ export const Topbar = ({setIsSidebar}) => {
         <IconButton className="icon">
           <SettingsOutlinedIcon />
         </IconButton>
-        <IconButton className="icon" onClick={handleClick}>
+        { !isLoginPage && !isRegistrationPage ? 
+        (
+          <IconButton className="icon" onClick={handlePersonClick}>
           <PersonOutlinedIcon />
-          <Menu
-            anchorEl={anchorEl}
-            open={Boolean(anchorEl)}
-            onClose={handleClose}
-          >
-            <MenuItem onClick={handleLogout}>Logout</MenuItem>
-          </Menu>
-        </IconButton>
+            <Menu
+              anchorEl={anchorEl}
+              open={Boolean(anchorEl)}
+              onClose={handlePersonClose}
+            >
+              <MenuItem onClick={handleLogout}>Logout</MenuItem>
+            </Menu>
+          </IconButton>
+        ) : 
+          <IconButton className="icon" onClick={handleLoginClick}>
+            <LoginIcon />
+          </IconButton>
+        }
       </Box>
     </Box>
   )

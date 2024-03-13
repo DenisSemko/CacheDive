@@ -1,5 +1,5 @@
-import React from 'react';
-import "./Registration.scss";
+import React, { useEffect } from 'react';
+import "./Login.scss";
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { Box, Button, TextField } from "@mui/material";
@@ -10,15 +10,22 @@ import { useFetch } from "../../hooks/useFetch.js";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+export const Login = ({ setIsSidebar }) => {
+  const navigate = useNavigate();
+  const { executeRequest, data, isLoading, error } = useFetch('/Auth/login');
 
-export const Registration = () => {
-  const { executeRequest, data, isLoading, error } = useFetch('/Auth/registration');
-  
+  useEffect(() => {
+    const storedIsSidebar = localStorage.getItem('isSidebar');
+    if(storedIsSidebar) {
+      localStorage.setItem('isSidebar', JSON.stringify(false));
+    }
+  }, []);
+
   const handleFormSubmit = async (values) => {
 
     await executeRequest({
       method: "POST", 
-      url: '/Auth/registration', 
+      url: '/Auth/login', 
       headers: { accept: '*/*' }, 
       data: values 
     });
@@ -26,47 +33,34 @@ export const Registration = () => {
     if (error) {
       toast.error(error.request.responseText);
     } else {
-      toast.success('User created successfully!');
+      toast.success('User signed in successfully!');
     }
+
+    setIsSidebar(true);
+    localStorage.setItem('isSidebar', JSON.stringify(true));
+    navigate('/dashboard');
   };
 
   const initialValues = {
-    name: "",
     username: "",
-    email: "",
-    passwordHash: ""
+    password: ""
   };
 
   const passwordRegExp = /^(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9]).{8,}$/;
 
   const checkoutSchema = yup.object().shape({
-    name: yup.string().required("required"),
     username: yup.string().required("required"),
-    email: yup.string().email("invalid email").required("required"),
-    passwordHash: yup.string().matches(passwordRegExp, "Password is not valid").required("required")
+    password: yup.string().matches(passwordRegExp, "Password is not valid").required("required")
   });
 
-
   return (
-    <Box className="registration-container">
-        <InnerHeader title="REGISTRATION" subtitle="Create a New User Profile" />
+    <Box className="login-container">
+        <InnerHeader title="LOGIN" subtitle="Sign In a User" />
         <Formik onSubmit={ async (values, { resetForm }) => { await handleFormSubmit(values); resetForm(); }} 
           initialValues={initialValues} validationSchema={checkoutSchema}>
           {({ values, errors, touched, handleBlur, handleChange, handleSubmit }) => (
             <form onSubmit={handleSubmit}>
               <Box className="form-container">
-                <TextField
-                  className="input"
-                  variant="filled"
-                  type="text"
-                  label="Name"
-                  onBlur={handleBlur}
-                  onChange={handleChange}
-                  value={values.name}
-                  name="name"
-                  error={!!touched.name && !!errors.name}
-                  helperText={touched.name && errors.name}
-                />
                 <TextField
                   className="input"
                   variant="filled"
@@ -83,31 +77,19 @@ export const Registration = () => {
                   className="input"
                   variant="filled"
                   type="text"
-                  label="Email"
-                  onBlur={handleBlur}
-                  onChange={handleChange}
-                  value={values.email}
-                  name="email"
-                  error={!!touched.email && !!errors.email}
-                  helperText={touched.email && errors.email}
-                />
-                <TextField
-                  className="input"
-                  variant="filled"
-                  type="text"
                   label="Password"
                   onBlur={handleBlur}
                   onChange={handleChange}
-                  value={values.passwordHash}
-                  name="passwordHash"
-                  error={!!touched.passwordHash && !!errors.passwordHash}
-                  helperText={touched.passwordHash && errors.passwordHash}
+                  value={values.password}
+                  name="password"
+                  error={!!touched.password && !!errors.password}
+                  helperText={touched.password && errors.password}
                 />
               </Box>
-              <Link className='link' to="/">Already Registered? Sign In!</Link>
+              <Link className='link' to="/registration">Not Registered Yet?</Link>
               <Box display="flex" justifyContent="center" mt="30px">
                 <Button type="submit" color="secondary" variant="contained">
-                  Create New User
+                  Sign In
                 </Button>
               </Box>
             </form>
