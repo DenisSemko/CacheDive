@@ -4,7 +4,7 @@ services:
   sqlserverdb:
     container_name: sqlserverdb
     environment:
-      SA_PASSWORD: ""
+      SA_PASSWORD: "mcbv3n12!"
       ACCEPT_EULA: "Y"
     restart: always
     ports:
@@ -22,8 +22,8 @@ services:
   experimentdb:
     container_name: experimentdb
     environment:
-      - POSTGRES_USER=
-      - POSTGRES_PASSWORD=
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
       - POSTGRES_DB=CacheDiveExperimentDb
     restart: always
     ports:
@@ -34,23 +34,32 @@ services:
   pgadmin:
     container_name: pgadmin
     environment:
-      - PGADMIN_DEFAULT_EMAIL=
-      - PGADMIN_DEFAULT_PASSWORD=
+      - PGADMIN_DEFAULT_EMAIL=admin@cachedive.com
+      - PGADMIN_DEFAULT_PASSWORD=postgres
     restart: always
     ports:
       - "5050:80"
     volumes:
       - pgadmin_data:/root/.pgadmin
+  
+  redisdb:
+    container_name: redisdb
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-db:/var/opt/redis
 
   sqlserveragent.api:
     container_name: sqlserveragent.api
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - "ConnectionStrings:DefaultConnection="
-      - "EventBusSettings:HostAddress="
+      - "ConnectionStrings:DefaultConnection=Server=sqlserverdb;Database=CacheDiveSQLServerDb;User Id=sa;Password=mcbv3n12!;TrustServerCertificate=True;"
+      - "EventBusSettings:HostAddress=amqp://guest:guest@rabbitmq:5672"
     restart: always
     ports:
-      - "8001:80"
+      - "8002:80"
+      - "8003:443"
 
   redisagent.api:
     container_name: redisagent.api
@@ -58,46 +67,51 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
     restart: always
     ports:
-      - "8002:80"
-  
+      - "8004:80"
+      - "8005:443"
+
   memcachedagent.api:
     container_name: memcachedagent.api
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
     restart: always
     ports:
-      - "8003:80"
+      - "8006:80"
+      - "8007:443"
 
   configagent.api:
     container_name: configagent.api
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - "EventBusSettings:HostAddress="
+      - "EventBusSettings:HostAddress=amqp://guest:guest@rabbitmq:5672"
     restart: always
     ports:
-      - "8004:80"
-  
+      - "8008:80"
+      - "8009:443"
+
   experimentagent.api:
     container_name: experimentagent.api
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - "ConnectionStrings:DefaultConnection="
-      - "EventBusSettings:HostAddress="
+      - "ConnectionStrings:DefaultConnection=Server=experimentdb;Database=CacheDiveExperimentDb;User Id=postgres;Password=postgres;Integrated Security=true;Pooling=true"
+      - "EventBusSettings:HostAddress=amqp://guest:guest@rabbitmq:5672"
     restart: always
     ports:
-      - "8005:80"
-  
+      - "8010:80"
+      - "8011:443"
+
   identityagent.api:
     container_name: identityagent.api
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - "ConnectionStrings:DefaultConnection="
+      - "ConnectionStrings:DefaultConnection=Server=sqlserverdb;Database=CacheDiveIdentityDb;User Id=sa;Password=mcbv3n12!;TrustServerCertificate=True;"
     restart: always
     ports:
-      - "8006:80"
+      - "8012:80"
+      - "8013:443"
     volumes:
       - .src/SharedConfig:/app/SharedConfig
-  
+
   apigateway:
     container_name: apigateway
     environment:
@@ -105,5 +119,6 @@ services:
     restart: always
     ports:
       - "8000:80"
+      - "8001:443"
     volumes:
       - .src/SharedConfig:/app/SharedConfig

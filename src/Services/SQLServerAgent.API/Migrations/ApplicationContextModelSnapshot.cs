@@ -41,7 +41,7 @@ namespace SQLServerAgent.API.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Baskets");
+                    b.ToTable("Baskets", (string)null);
                 });
 
             modelBuilder.Entity("SQLServerAgent.API.Models.Category", b =>
@@ -56,7 +56,7 @@ namespace SQLServerAgent.API.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories");
+                    b.ToTable("Categories", (string)null);
                 });
 
             modelBuilder.Entity("SQLServerAgent.API.Models.Order", b =>
@@ -91,7 +91,7 @@ namespace SQLServerAgent.API.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Orders");
+                    b.ToTable("Orders", (string)null);
                 });
 
             modelBuilder.Entity("SQLServerAgent.API.Models.Product", b =>
@@ -125,7 +125,7 @@ namespace SQLServerAgent.API.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("Products");
+                    b.ToTable("Products", (string)null);
                 });
 
             modelBuilder.Entity("SQLServerAgent.API.Models.ProductBasket", b =>
@@ -152,7 +152,7 @@ namespace SQLServerAgent.API.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("ProductBaskets");
+                    b.ToTable("ProductBaskets", (string)null);
                 });
 
             modelBuilder.Entity("SQLServerAgent.API.Models.ProductOrder", b =>
@@ -179,7 +179,7 @@ namespace SQLServerAgent.API.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("ProductOrders");
+                    b.ToTable("ProductOrders", (string)null);
                 });
 
             modelBuilder.Entity("SQLServerAgent.API.Models.User", b =>
@@ -210,7 +210,7 @@ namespace SQLServerAgent.API.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("SQLServerAgent.API.Models.Basket", b =>
