@@ -1,4 +1,5 @@
 global using System.Net;
+global using System.Text.Json.Serialization;
 global using ConfigAgent.API.Common;
 global using ConfigAgent.API.Services.Abstract;
 global using ConfigAgent.API.Services.Concrete;

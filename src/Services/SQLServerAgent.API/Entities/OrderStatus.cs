@@ -2,7 +2,7 @@ namespace SQLServerAgent.API.Entities;
 
 public enum OrderStatus
 {
-    Submitted,
+    Submitted = 1,
     AwaitingValidation,
     Confirmed,
     Paid,

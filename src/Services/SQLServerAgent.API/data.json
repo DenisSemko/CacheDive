@@ -115,9 +115,9 @@
       "id": "a4997955-96d0-4ae2-979c-bce474038a24",
       "totalPrice": 3118.98,
       "orderDate": "2024-02-01T08:11:38.541Z",
-      "orderStatus": 0,
-      "shippingType": 3,
-      "paymentType": 0,
+      "orderStatus": 1,
+      "shippingType": 2,
+      "paymentType": 1,
       "shippingAddress": "USA, Los Angeles, Hollywood boulevard 343",
       "userId": "2b9b47ba-958b-4406-a766-fcd25dfc5764"
     }

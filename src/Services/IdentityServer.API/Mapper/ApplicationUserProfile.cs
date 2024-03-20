@@ -8,5 +8,7 @@ public class ApplicationUserProfile : Profile
             .ConvertUsing(new RegistrationModelToApplicationUser());
         CreateMap<IReadOnlyCollection<ApplicationUser>, List<ApplicationUserDto>>()
             .ConvertUsing(new CollectionApplicationUserToCollectionApplicationUserDto());
+        CreateMap<ApplicationUser, ApplicationUserDto>()
+            .ConvertUsing(new ApplicationUserToApplicationUserDto());
     }
 }

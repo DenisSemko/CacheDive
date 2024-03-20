@@ -3,6 +3,7 @@ global using System.Net;
 global using System.Reflection;
 global using System.Security.Claims;
 global using System.Text;
+global using System.Text.Json.Serialization;
 global using AutoMapper;
 global using IdentityServer.API.Common;
 global using IdentityServer.API.Common.Jwt;

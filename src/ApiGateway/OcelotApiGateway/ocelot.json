@@ -9,11 +9,23 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": "8004"
+          "Port": "7095"
         }
       ],
       "UpstreamPathTemplate": "/ConfigAgent",
       "UpstreamHttpMethod": [ "POST" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/General",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": "7265"
+        }
+      ],
+      "UpstreamPathTemplate": "/General",
+      "UpstreamHttpMethod": [ "GET" ]
     },
     {
       "DownstreamPathTemplate": "/api/ExperimentRequest",
@@ -21,11 +33,35 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": "8005"
+          "Port": "7109"
         }
       ],
       "UpstreamPathTemplate": "/ExperimentRequest",
       "UpstreamHttpMethod": [ "POST"]
+    },
+    {
+      "DownstreamPathTemplate": "/api/ExperimentOutcome",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": "7109"
+        }
+      ],
+      "UpstreamPathTemplate": "/ExperimentOutcome",
+      "UpstreamHttpMethod": [ "GET"]
+    },
+    {
+      "DownstreamPathTemplate": "/api/ExperimentOutcome/{id}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": "7109"
+        }
+      ],
+      "UpstreamPathTemplate": "/ExperimentOutcome/{id}",
+      "UpstreamHttpMethod": [ "DELETE" ]
     },
     {
       "DownstreamPathTemplate": "/api/Auth/login",
@@ -62,6 +98,18 @@
       ],
       "UpstreamPathTemplate": "/Auth/logout",
       "UpstreamHttpMethod": [ "POST" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/User/current",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": "7073"
+        }
+      ],
+      "UpstreamPathTemplate": "/User/current",
+      "UpstreamHttpMethod": [ "GET" ]
     }
   ]
 }

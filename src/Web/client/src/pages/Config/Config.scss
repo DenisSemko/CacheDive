@@ -1,0 +1,19 @@
+.config-container {
+    margin: 20px;
+
+    .row-container {
+        display: flex;
+        flex-direction: row;
+        gap: 40%;
+
+        .form-container {
+            display: flex;
+           
+            .upload-form {
+                display: flex;
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+    }
+}

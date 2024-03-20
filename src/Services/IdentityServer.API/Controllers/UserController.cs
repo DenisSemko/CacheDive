@@ -71,7 +71,7 @@ public class UserController : Controller
     [ProducesResponseType(typeof(ApplicationUserDto), (int)HttpStatusCode.OK)]
     public async Task<ActionResult<ApplicationUserDto>> GetCurrentUser()
     {
-        string? accessToken = Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
+        string? accessToken = Request.Cookies["Authorization"];
         string userId = string.Empty;
 
         if (accessToken is not null)

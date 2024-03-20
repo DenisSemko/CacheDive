@@ -20,6 +20,6 @@ public class AccessTokenService : IAccessTokenService
             new("id", user.Id.ToString())
         };
 
-        return _tokenGeneratorService.GenerateToken(claims, DateTime.UtcNow.AddMinutes(15), userRoles);
+        return _tokenGeneratorService.GenerateToken(claims, DateTime.UtcNow.AddMinutes(300), userRoles);
     }
 }

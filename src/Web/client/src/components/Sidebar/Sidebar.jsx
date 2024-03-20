@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ProSidebar, Menu, MenuItem } from "react-pro-sidebar";
 import { Box, IconButton, Typography, useTheme } from "@mui/material";
 import { Link } from "react-router-dom";
@@ -8,12 +8,16 @@ import { tokens } from "../../theme";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
+import BiotechIcon from '@mui/icons-material/Biotech';
+import TimelineIcon from '@mui/icons-material/Timeline';
 import logo from "../../assets/logo.png";
+import { useFetch } from "../../hooks/useFetch.js";
 
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+
   return (
     <MenuItem
       active={selected === title}
@@ -34,7 +38,17 @@ export const Sidebar = ({isSidebar}) => {
   const colors = tokens(theme.palette.mode);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [selected, setSelected] = useState('Dashboard');
+  const { data, isLoading, error } = useFetch({
+    method: 'GET',
+    url: '/User/current',
+    headers: { "Accept": '*/*' }
+  });
 
+    useEffect(() => {
+      if (error) {
+        console.error(error.request.responseText);
+      }
+    }, [error]);
 
   return (
     <Box
@@ -102,10 +116,10 @@ export const Sidebar = ({isSidebar}) => {
                     fontWeight="bold"
                     sx={{ m: "10px 0 0 0" }}
                   >
-                    Name
+                    { data.name }
                   </Typography>
                   <Typography variant="h5" color={colors.greenAccent[500]}>
-                    Email
+                    { data.email }
                   </Typography>
                 </Box>
               </Box>
@@ -121,8 +135,22 @@ export const Sidebar = ({isSidebar}) => {
               />
               <Item
                 title="Data Configuration"
-                to="/configure"
+                to="/configuration"
                 icon={<TimelineOutlinedIcon />}
+                selected={selected}
+                setSelected={setSelected}
+              />
+              <Item
+                title="Experiment"
+                to="/experiment"
+                icon={<BiotechIcon />}
+                selected={selected}
+                setSelected={setSelected}
+              />
+              <Item
+                title="Analytics"
+                to="/analytics"
+                icon={<TimelineIcon />}
                 selected={selected}
                 setSelected={setSelected}
               />

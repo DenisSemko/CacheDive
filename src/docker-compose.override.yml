@@ -4,7 +4,7 @@ services:
   sqlserverdb:
     container_name: sqlserverdb
     environment:
-      SA_PASSWORD: "mcbv3n12!"
+      SA_PASSWORD: ""
       ACCEPT_EULA: "Y"
     restart: always
     ports:
@@ -22,9 +22,9 @@ services:
   experimentdb:
     container_name: experimentdb
     environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=CacheDiveExperimentDb
+      - POSTGRES_USER=
+      - POSTGRES_PASSWORD=
+      - POSTGRES_DB=
     restart: always
     ports:
       - "5432:5432"
@@ -34,8 +34,8 @@ services:
   pgadmin:
     container_name: pgadmin
     environment:
-      - PGADMIN_DEFAULT_EMAIL=admin@cachedive.com
-      - PGADMIN_DEFAULT_PASSWORD=postgres
+      - PGADMIN_DEFAULT_EMAIL=
+      - PGADMIN_DEFAULT_PASSWORD=
     restart: always
     ports:
       - "5050:80"
@@ -54,8 +54,8 @@ services:
     container_name: sqlserveragent.api
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - "ConnectionStrings:DefaultConnection=Server=sqlserverdb;Database=CacheDiveSQLServerDb;User Id=sa;Password=mcbv3n12!;TrustServerCertificate=True;"
-      - "EventBusSettings:HostAddress=amqp://guest:guest@rabbitmq:5672"
+      - "ConnectionStrings:DefaultConnection="
+      - "EventBusSettings:HostAddress="
     restart: always
     ports:
       - "8002:80"
@@ -83,7 +83,7 @@ services:
     container_name: configagent.api
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - "EventBusSettings:HostAddress=amqp://guest:guest@rabbitmq:5672"
+      - "EventBusSettings:HostAddress="
     restart: always
     ports:
       - "8008:80"
@@ -93,8 +93,8 @@ services:
     container_name: experimentagent.api
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - "ConnectionStrings:DefaultConnection=Server=experimentdb;Database=CacheDiveExperimentDb;User Id=postgres;Password=postgres;Integrated Security=true;Pooling=true"
-      - "EventBusSettings:HostAddress=amqp://guest:guest@rabbitmq:5672"
+      - "ConnectionStrings:DefaultConnection="
+      - "EventBusSettings:HostAddress="
     restart: always
     ports:
       - "8010:80"
@@ -104,7 +104,7 @@ services:
     container_name: identityagent.api
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - "ConnectionStrings:DefaultConnection=Server=sqlserverdb;Database=CacheDiveIdentityDb;User Id=sa;Password=mcbv3n12!;TrustServerCertificate=True;"
+      - "ConnectionStrings:DefaultConnection="
     restart: always
     ports:
       - "8012:80"

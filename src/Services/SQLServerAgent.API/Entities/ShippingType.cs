@@ -2,7 +2,7 @@ namespace SQLServerAgent.API.Entities;
 
 public enum ShippingType
 {
-    Free,
+    Free = 1,
     Standard,
     Express
 }

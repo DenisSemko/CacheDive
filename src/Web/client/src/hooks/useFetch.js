@@ -1,15 +1,15 @@
-import { useState, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 
-export const useFetch = (url) => {
+export const useFetch = (requestParams, baseURL = "https://localhost:7053") => {
     
     const [data, setData] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
 
-    axios.defaults.baseURL = "https://localhost:7053";
+    axios.defaults.baseURL = baseURL;
 
-    const executeRequest = useCallback(async (params) => {
+    const fetchData = async (params) => {
         setIsLoading(true);
         try {
             const response = await axios.request({...params, withCredentials: true});
@@ -22,8 +22,15 @@ export const useFetch = (url) => {
             setIsLoading(false);
         }
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [url]);
+    };
 
-    return { executeRequest, data, isLoading, error };
+    useEffect(() => {
+
+        if (window.location.pathname !== '/') {
+            fetchData(requestParams);
+        }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [requestParams.url, window.location.pathname]);
+
+    return { data, isLoading, error };
 }
