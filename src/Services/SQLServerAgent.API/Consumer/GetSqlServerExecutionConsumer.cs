@@ -52,7 +52,8 @@ public class GetSqlServerExecutionConsumer : IConsumer<GetSqlServerExecutionRequ
         {
             await context.RespondAsync(new GetSqlServerExecutionResponse()
             {
-                IsExecutedFromCache = false
+                IsExecutedFromCache = false,
+                QueryExecutionTime = resultTime.ToString()
             });
         }
     }

@@ -1,25 +1,21 @@
 import React from 'react';
 import "./Registration.scss";
-import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { Box, Button, TextField } from "@mui/material";
 import { Formik } from "formik";
 import * as yup from "yup";
 import { InnerHeader } from "../../components/InnerHeader";
-import { useFetch } from "../../hooks/useFetch.js";
+import { usePost } from "../../hooks/usePost.js";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 
 export const Registration = () => {
-  const { executeRequest, data, isLoading, error } = useFetch('/Auth/registration');
+  const { error, postData } = usePost();
   
   const handleFormSubmit = async (values) => {
-
-    await executeRequest({
-      method: "POST", 
-      url: '/Auth/registration', 
-      headers: { accept: '*/*' }, 
+    await postData({
+      url: '/Auth/registration',
       data: values 
     });
 

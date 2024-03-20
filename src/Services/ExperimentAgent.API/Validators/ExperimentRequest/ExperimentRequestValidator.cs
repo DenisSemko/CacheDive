@@ -7,7 +7,7 @@ public class ExperimentRequestValidator : AbstractValidator<Models.ExperimentReq
 {
     public ExperimentRequestValidator()
     {
-        RuleFor(ex => ex.Query).NotEmpty();
-        RuleFor(ex => ex.QueryExecutionNumber).Must(num => num > 0);
+        // RuleFor(ex => ex.Query).NotEmpty();
+        // RuleFor(ex => ex.QueryExecutionNumber).Must(num => num > 0);
     }
 }

@@ -2,6 +2,6 @@ namespace SQLServerAgent.API.Entities;
 
 public enum PaymentType
 {
-    Online,
+    Online = 1,
     Cash
 }

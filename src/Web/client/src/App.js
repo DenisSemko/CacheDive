@@ -8,6 +8,8 @@ import { Routes, Route } from "react-router-dom";
 import { Registration } from "./pages/Registration";
 import { Login } from "./pages/Login";
 import { Dashboard } from "./pages/Dashboard";
+import { Config } from "./pages/Config";
+import { Experiment } from "./pages/Experiment";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -24,12 +26,14 @@ export const App = () => {
         <CssBaseline />
         <div className="app">
           <Sidebar isSidebar={isSidebar} />
-          <main className="content">
+          <main className="content" style={{ overflow: 'hidden'}}>
             <Topbar setIsSidebar={setIsSidebar} />
             <Routes>
               <Route path="/" element={<Login setIsSidebar={setIsSidebar} />} />
               <Route path="/registration" element={<Registration />} />
               <Route path="/dashboard" element={<Dashboard />}/>
+              <Route path="/configuration" element={<Config />}/>
+              <Route path="/experiment" element={<Experiment />}/>
             </Routes>
             <ToastContainer position="top-right" autoClose={5000} />
           </main>

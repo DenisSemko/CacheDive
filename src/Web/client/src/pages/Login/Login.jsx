@@ -1,18 +1,24 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import "./Login.scss";
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import { Box, Button, TextField } from "@mui/material";
+import { Box, Button, TextField, InputAdornment, IconButton } from "@mui/material";
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { Formik } from "formik";
 import * as yup from "yup";
 import { InnerHeader } from "../../components/InnerHeader";
-import { useFetch } from "../../hooks/useFetch.js";
+import { usePost } from "../../hooks/usePost.js";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 export const Login = ({ setIsSidebar }) => {
   const navigate = useNavigate();
-  const { executeRequest, data, isLoading, error } = useFetch('/Auth/login');
+  const { error, postData } = usePost();
+  const [showPassword, setShowPassword] = useState(false);
+  const handleClickShowPassword = () => setShowPassword(!showPassword);
+  const handleMouseDownPassword = () => setShowPassword(!showPassword);
+
 
   useEffect(() => {
     const storedIsSidebar = localStorage.getItem('isSidebar');
@@ -23,10 +29,8 @@ export const Login = ({ setIsSidebar }) => {
 
   const handleFormSubmit = async (values) => {
 
-    await executeRequest({
-      method: "POST", 
+    await postData({
       url: '/Auth/login', 
-      headers: { accept: '*/*' }, 
       data: values 
     });
 
@@ -34,11 +38,10 @@ export const Login = ({ setIsSidebar }) => {
       toast.error(error.request.responseText);
     } else {
       toast.success('User signed in successfully!');
+      setIsSidebar(true);
+      localStorage.setItem('isSidebar', JSON.stringify(true));
+      navigate('/dashboard');
     }
-
-    setIsSidebar(true);
-    localStorage.setItem('isSidebar', JSON.stringify(true));
-    navigate('/dashboard');
   };
 
   const initialValues = {
@@ -76,7 +79,7 @@ export const Login = ({ setIsSidebar }) => {
                 <TextField
                   className="input"
                   variant="filled"
-                  type="text"
+                  type={showPassword ? "text" : "password"}
                   label="Password"
                   onBlur={handleBlur}
                   onChange={handleChange}
@@ -84,6 +87,19 @@ export const Login = ({ setIsSidebar }) => {
                   name="password"
                   error={!!touched.password && !!errors.password}
                   helperText={touched.password && errors.password}
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton
+                          aria-label="toggle password visibility"
+                          onClick={handleClickShowPassword}
+                          onMouseDown={handleMouseDownPassword}
+                        >
+                          {showPassword ? <VisibilityIcon /> : <VisibilityOffIcon />}
+                        </IconButton>
+                      </InputAdornment>
+                    )
+                  }}
                 />
               </Box>
               <Link className='link' to="/registration">Not Registered Yet?</Link>

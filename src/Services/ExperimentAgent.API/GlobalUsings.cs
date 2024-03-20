@@ -1,6 +1,7 @@
 global using System.Linq.Expressions;
 global using System.Net;
 global using System.Reflection;
+global using System.Text.Json.Serialization;
 global using AutoMapper;
 global using EventBus.Messages.Events.Request;
 global using EventBus.Messages.Events.Response;

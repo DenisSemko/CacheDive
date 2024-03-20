@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import "./Topbar.scss";
 import { Box, IconButton, useTheme } from "@mui/material";
 import { useContext, useState } from "react";
@@ -14,7 +14,7 @@ import LoginIcon from '@mui/icons-material/Login';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { useFetch } from "../../hooks/useFetch.js";
+import { usePost } from "../../hooks/usePost.js";
 
 
 export const Topbar = ({setIsSidebar}) => {
@@ -26,7 +26,7 @@ export const Topbar = ({setIsSidebar}) => {
   const location = useLocation();
   const isLoginPage = location.pathname === '/';
   const isRegistrationPage = location.pathname === '/registration';
-  const { executeRequest, data, isLoading, error } = useFetch('/Auth/logout');
+  const { error, postData } = usePost();
   const logoutData = {
     username: "test"
   };
@@ -43,19 +43,23 @@ export const Topbar = ({setIsSidebar}) => {
     window.location.href = "/";
   };
 
-  const handleLogout = async () => {
+  const handleSettingsClick = () => {
+    window.location.href = "/configuration";
+  };
 
-    await executeRequest({
-      method: "POST", 
-      url: '/Auth/logout', 
-      headers: { accept: '*/*' }, 
-      data: logoutData
+  const handleLogout = async () => {
+    const response = await postData({
+      url: '/Auth/logout',
+      headers: { "Accept": '*/*' }, 
+      data: logoutData 
     });
 
-
-    setIsSidebar(false);
-    navigate('/');
-    handlePersonClose();
+    if (!error) {
+      setIsSidebar(false);
+      navigate('/');
+      handlePersonClose();
+    }
+   
   };
 
   return (
@@ -77,9 +81,14 @@ export const Topbar = ({setIsSidebar}) => {
         <IconButton className="icon">
           <NotificationsOutlinedIcon />
         </IconButton>
-        <IconButton className="icon">
-          <SettingsOutlinedIcon />
-        </IconButton>
+        { !isLoginPage && !isRegistrationPage ? 
+        ( 
+          <IconButton className="icon" onClick={handleSettingsClick}>
+            <SettingsOutlinedIcon />
+          </IconButton>
+        ) : (
+          <></>
+        )}
         { !isLoginPage && !isRegistrationPage ? 
         (
           <IconButton className="icon" onClick={handlePersonClick}>
