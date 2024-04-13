@@ -1,4 +1,4 @@
-namespace MemcachedAgent.API;
+namespace MongoAgent.API;
 
 public class WeatherForecast
 {

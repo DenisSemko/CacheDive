@@ -6,7 +6,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConfigAgent.API", "Services
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RedisAgent.API", "Services\RedisAgent.API\RedisAgent.API.csproj", "{D8CBAD00-F764-424D-9ADF-668733FA32CE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MemcachedAgent.API", "Services\MemcachedAgent.API\MemcachedAgent.API.csproj", "{65AAC0A5-7660-477B-B49C-216F5D73F3C0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MongoAgent.API", "Services\MongoAgent.API\MongoAgent.API.csproj", "{65AAC0A5-7660-477B-B49C-216F5D73F3C0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SQLServerAgent.API", "Services\SQLServerAgent.API\SQLServerAgent.API.csproj", "{5584B8F9-2B42-49BC-9091-42E85C78D560}"
 EndProject

@@ -2,5 +2,6 @@ namespace EventBus.Messages.Events.Request;
 
 public class GetRedisExecutionRequest : IntegrationBaseEvent
 {
-    public string Command { get; set; }
+    public ExperimentType ExperimentType { get; set; }
+    public int QueryExecutionNumber { get; set; }
 }

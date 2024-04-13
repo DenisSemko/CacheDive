@@ -40,6 +40,9 @@ namespace ExperimentAgent.API.Migrations
                     b.Property<int>("DatabaseType")
                         .HasColumnType("integer");
 
+                    b.Property<bool>("IsExecutedFromCache")
+                        .HasColumnType("boolean");
+
                     b.Property<string>("Query")
                         .IsRequired()
                         .HasColumnType("text");

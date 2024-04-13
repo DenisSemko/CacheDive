@@ -25,6 +25,12 @@ export const ExperimentOutcomesGrid = () => {
           align: "left",
         },
         {
+            field: "isExecutedFromCache",
+            headerName: "Executed From Cache",
+            headerAlign: "left",
+            align: "left",
+          },
+        {
             field: 'button',
             headerName: 'Action',
             width: 150,

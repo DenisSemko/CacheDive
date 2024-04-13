@@ -13,7 +13,7 @@ public class GetSqlServerExecutionConsumer : IConsumer<GetSqlServerExecutionRequ
 
     public async Task Consume(ConsumeContext<GetSqlServerExecutionRequest> context)
     {
-        string query = context.Message.Query;
+        string query = _executionQueryHelper.HandleExperimentType(context.Message.ExperimentType);
         
         //clear cache
         if (context.Message.IsCacheCleaned)
@@ -36,9 +36,13 @@ public class GetSqlServerExecutionConsumer : IConsumer<GetSqlServerExecutionRequ
         if (!string.IsNullOrEmpty(queryPlan))
         {
             Result result = await _executionQueryHelper.ExamineQueryCachePlan(queryPlan, query);
+            
+            string modifiedQuery = string.Join(" ", query.Split(new[] { '\n', '\t' }, StringSplitOptions.RemoveEmptyEntries));
+            string finalQuery = Regex.Replace(modifiedQuery, @"\s+", " ");
 
             await context.RespondAsync(new GetSqlServerExecutionResponse()
             {
+                Query = finalQuery,
                 IsExecutedFromCache = result.IsCached,
                 QueryExecutionNumber = context.Message.QueryExecutionNumber,
                 CacheHitRate = result.CacheHitRate,
@@ -52,6 +56,7 @@ public class GetSqlServerExecutionConsumer : IConsumer<GetSqlServerExecutionRequ
         {
             await context.RespondAsync(new GetSqlServerExecutionResponse()
             {
+                Query = query,
                 IsExecutedFromCache = false,
                 QueryExecutionTime = resultTime.ToString()
             });

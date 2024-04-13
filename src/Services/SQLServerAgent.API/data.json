@@ -12,6 +12,18 @@
     }
   },
   {
+    "entity": "User",
+    "data": {
+      "id": "3682c950-9659-41ec-a5af-9036da0dd054",
+      "name": "Sofiia Shevchenko",
+      "phoneNumber": "+380978996442",
+      "email": "shevchenko@gmail.com",
+      "userLogin": "sof_shev",
+      "passwordHash": "gw7R%3Op{Jt5",
+      "registrationDate": "2024-01-12T19:32:16.910Z"
+    }
+  },
+  {
     "entity": "Category",
     "data": {
       "id": "25dd972f-f11d-4197-a061-d51a8067ee0a",
@@ -38,7 +50,7 @@
       "id": "ef437a95-13e5-4d88-9309-9f8fdfe280d2",
       "name": "Samsung S24 Ultra",
       "description": "Elevate your work with the most epic Galaxy yet, featuring the game-changing power of Galaxy AI.",
-      "price": 1419.99,
+      "price": 1419.00,
       "image": "phone.png",
       "quantity": 10000,
       "categoryId": "25dd972f-f11d-4197-a061-d51a8067ee0a"
@@ -50,7 +62,7 @@
       "id": "9f81f912-566e-47f0-a12b-038293583e1b",
       "name": "Apple iPhone 15 Pro Max 256Gb",
       "description": "The iPhone 15 Pro Max comes with 6.7-inch OLED display with 120Hz refresh rate and Apple's improved A17 Pro processor.",
-      "price": 1199.99,
+      "price": 1199.00,
       "image": "iphone.png",
       "quantity": 2000,
       "categoryId": "31a0d427-fa0f-447e-869b-ddd4a17d4762"
@@ -71,7 +83,7 @@
   {
     "entity": "Product",
     "data": {
-      "id": "a5003afc-4005-4edc-9725-22aa87ecdeaf",
+      "id": "c603fff3-9b55-400c-a7f6-fd56cf499b6f",
       "name": "Marshall Major IV",
       "description": "Major IV delivers the signature Marshall sound that you have come to expect.",
       "price": 179.00,
@@ -85,7 +97,7 @@
     "data": {
       "id": "6c780439-2b12-44d4-866f-bc1b500fab55",
       "totalQuantity": 3,
-      "totalPrice": 3018.98,
+      "totalPrice": 3017.00,
       "userId": "2b9b47ba-958b-4406-a766-fcd25dfc5764"
     }
   },
@@ -94,7 +106,7 @@
     "data": {
       "id": "ce00ac87-83c5-4ebd-a4ce-37799d86f2c3",
       "quantity": 2,
-      "price": 2839.98,
+      "price": 2838.00,
       "productId": "ef437a95-13e5-4d88-9309-9f8fdfe280d2",
       "basketId": "6c780439-2b12-44d4-866f-bc1b500fab55"
     }
@@ -105,17 +117,46 @@
       "id": "79a0703d-4c3a-4e1c-8b88-5e6ee4b26b35",
       "quantity": 1,
       "price": 179.00,
-      "productId": "a5003afc-4005-4edc-9725-22aa87ecdeaf",
+      "productId": "c603fff3-9b55-400c-a7f6-fd56cf499b6f",
       "basketId": "6c780439-2b12-44d4-866f-bc1b500fab55"
+    }
+  },
+  {
+    "entity": "Basket",
+    "data": {
+      "id": "1a382326-acbc-40e9-836f-3d01058e2932",
+      "totalQuantity": 4,
+      "totalPrice": 5206.00,
+      "userId": "3682c950-9659-41ec-a5af-9036da0dd054"
+    }
+  },
+  {
+    "entity": "ProductBasket",
+    "data": {
+      "id": "ef7edf8c-c87b-4171-a5fb-8992eac145e4",
+      "quantity": 3,
+      "price": 3597.00,
+      "productId": "9f81f912-566e-47f0-a12b-038293583e1b",
+      "basketId": "1a382326-acbc-40e9-836f-3d01058e2932"
+    }
+  },
+  {
+    "entity": "ProductBasket",
+    "data": {
+      "id": "b8101199-d164-4f3c-9e07-ff8eff98bee3",
+      "quantity": 1,
+      "price": 1609.00,
+      "productId": "59066c5f-e1e3-41f3-8399-457052643611",
+      "basketId": "1a382326-acbc-40e9-836f-3d01058e2932"
     }
   },
   {
     "entity": "Order",
     "data": {
       "id": "a4997955-96d0-4ae2-979c-bce474038a24",
-      "totalPrice": 3118.98,
+      "totalPrice": 3017.00,
       "orderDate": "2024-02-01T08:11:38.541Z",
-      "orderStatus": 1,
+      "orderStatus": 4,
       "shippingType": 2,
       "paymentType": 1,
       "shippingAddress": "USA, Los Angeles, Hollywood boulevard 343",
@@ -127,7 +168,7 @@
     "data": {
       "id": "3b23a214-1494-4082-bb5b-47346db270a0",
       "quantity": 2,
-      "price": 2839.98,
+      "price": 2838.00,
       "productId": "ef437a95-13e5-4d88-9309-9f8fdfe280d2",
       "orderId": "a4997955-96d0-4ae2-979c-bce474038a24"
     }
@@ -138,8 +179,41 @@
       "id": "c09ae532-a2b6-4435-aa28-2a8e190d1903",
       "quantity": 1,
       "price": 179.00,
-      "productId": "a5003afc-4005-4edc-9725-22aa87ecdeaf",
+      "productId": "c603fff3-9b55-400c-a7f6-fd56cf499b6f",
       "orderId": "a4997955-96d0-4ae2-979c-bce474038a24"
+    }
+  },
+  {
+    "entity": "Order",
+    "data": {
+      "id": "0a2d6c2a-96bc-4eb7-82cb-1db2725e9902",
+      "totalPrice": 5206.00,
+      "orderDate": "2024-03-12T08:12:18.541Z",
+      "orderStatus": 4,
+      "shippingType": 2,
+      "paymentType": 1,
+      "shippingAddress": "Germany, Berlin, Siegesallee 121",
+      "userId": "3682c950-9659-41ec-a5af-9036da0dd054"
+    }
+  },
+  {
+    "entity": "ProductOrder",
+    "data": {
+      "id": "e4ca85c7-9db9-4e21-ade1-520ae0817ee6",
+      "quantity": 3,
+      "price": 3597.00,
+      "productId": "9f81f912-566e-47f0-a12b-038293583e1b",
+      "orderId": "0a2d6c2a-96bc-4eb7-82cb-1db2725e9902"
+    }
+  },
+  {
+    "entity": "ProductOrder",
+    "data": {
+      "id": "3c31d54f-f1d9-47d2-9ea5-6e36916791ce",
+      "quantity": 1,
+      "price": 1609.00,
+      "productId": "59066c5f-e1e3-41f3-8399-457052643611",
+      "orderId": "0a2d6c2a-96bc-4eb7-82cb-1db2725e9902"
     }
   }
 ]

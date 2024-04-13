@@ -4,5 +4,5 @@ public enum DatabaseType
 {
     MSSQL = 1,
     Redis,
-    Memcached
+    MongoDb
 }

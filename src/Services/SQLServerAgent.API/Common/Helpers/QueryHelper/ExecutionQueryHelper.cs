@@ -1,3 +1,5 @@
+using EventBus.Messages.Common;
+
 namespace SQLServerAgent.API.Common.Helpers.QueryHelper;
 
 public class ExecutionQueryHelper : IExecutionQueryHelper
@@ -53,11 +55,11 @@ public class ExecutionQueryHelper : IExecutionQueryHelper
     {
         bool isExecutedFromCache = queryPlan.Contains(Constants.QueryPlan.RetrievedFromCache);
         
-        //cache hint + miss
+        //cache hit + miss
         string updatedQuery = originalQuery.Replace("'", "''");
         string cacheHitMissQuery = string.Format(Constants.Queries.GetCacheHitMissQuery, updatedQuery);
-        string cacheHintMissRates = await ExecuteQueryWithReader(cacheHitMissQuery, new List<string>() { Constants.QueryPlan.CacheHitColumnName, Constants.QueryPlan.CacheMissColumnName });
-        string[] rates = cacheHintMissRates.Split(';');
+        string cacheHitMissRates = await ExecuteQueryWithReader(cacheHitMissQuery, new List<string>() { Constants.QueryPlan.CacheHitColumnName, Constants.QueryPlan.CacheMissColumnName });
+        string[] rates = cacheHitMissRates.Split(';');
         double cacheHitRate = double.Parse(rates[0].Replace(',', '.'), NumberStyles.Any, CultureInfo.InvariantCulture);
         double cacheMissRate = double.Parse(rates[1].Replace(',', '.'), NumberStyles.Any, CultureInfo.InvariantCulture);
     
@@ -89,4 +91,22 @@ public class ExecutionQueryHelper : IExecutionQueryHelper
             ? int.Parse(match.Groups[1].Value)
             : -1;
     }
+    
+    public string HandleExperimentType(ExperimentType experimentType)
+    {
+        string query = experimentType switch
+        {
+            ExperimentType.BasketBasketId => Constants.Queries.SelectProductsByBasketId,
+            ExperimentType.BasketUserId => Constants.Queries.SelectProductsByUserId,
+            ExperimentType.BasketTotalPrice => Constants.Queries.CountTotalPriceTotalQuantityByBasketId,
+            ExperimentType.ProductSmartphones => Constants.Queries.SelectProductsByCategory,
+            ExperimentType.ProductPrice => Constants.Queries.SelectProductsWithPriceFiltered,
+            ExperimentType.ProductLike => Constants.Queries.SelectProductsWithLikeFiltering,
+            ExperimentType.OrderGroupBy => Constants.Queries.SumTotalOrderPrice,
+            _ => throw new ArgumentOutOfRangeException(nameof(experimentType), experimentType, null)
+        };
+
+        return query;
+    }
+
 }
