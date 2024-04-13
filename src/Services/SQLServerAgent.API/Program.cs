@@ -10,7 +10,7 @@ builder.Services.AddMassTransit(configuration => {
     configuration.UsingRabbitMq((context, configurator) => {
         configurator.Host(builder.Configuration["EventBusSettings:HostAddress"]);
         
-        configurator.ReceiveEndpoint(EventBus.Messages.Common.Constants.TransferJsonQueue, c => {
+        configurator.ReceiveEndpoint(EventBus.Messages.Common.Constants.TransferSqlJsonQueue, c => {
             c.ConfigureConsumer<JsonDataConsumer>(context);
         });
         

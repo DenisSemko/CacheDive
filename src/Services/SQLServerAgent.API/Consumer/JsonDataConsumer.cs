@@ -87,6 +87,4 @@ public class JsonDataConsumer : IConsumer<JsonDataPublishedEvent>
         }
         parsedData.Clear();
     }
-
-   
 }

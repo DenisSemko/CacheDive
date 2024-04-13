@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import "./Experiment.scss";
-import { Box, Button, TextField, Paper, MenuItem, TextareaAutosize } from "@mui/material";
+import { Box, Button, TextField, Paper, MenuItem } from "@mui/material";
 import { Formik } from "formik";
 import * as yup from "yup";
 import { styled } from '@mui/system';
@@ -22,11 +22,12 @@ export const Experiment = () => {
   const [isResultBtnShown, setResultButtonShown] = useState(false);
   const [isModalOpen, setModalOpen] = useState(false);
   const [experimentResponse, setExperimentResponse] = useState(null);
+  const [selectedDatabaseType, setSelectedDatabaseType] = useState('');
 
   const handleFormSubmit = async (values) => {
     const experimentRequest = {
       databaseType: parseInt(values.databaseType),
-      query: values.query,
+      experimentType: values.experimentType,
       queryExecutionNumber: values.queryExecutionNumber,
       isCacheCleaned: JSON.parse(values.isCacheCleaned)
     };
@@ -48,16 +49,15 @@ export const Experiment = () => {
 
   const initialValues = {
     databaseType: "",
-    query: "",
+    experimentType: "",
     queryExecutionNumber: 0,
     isCacheCleaned: ""
   };
 
   const checkoutSchema = yup.object().shape({
     databaseType: yup.string().required("required"),
-    query: yup.string().required("required"),
-    queryExecutionNumber: yup.string().required("required"),
-    isCacheCleaned: yup.string().required("required")
+    experimentType: yup.string().required("required"),
+    queryExecutionNumber: yup.string().required("required")
   });
 
   const handleModalOpen = () => setModalOpen(true);
@@ -79,7 +79,10 @@ export const Experiment = () => {
                       id="select"
                       label="DatabaseType"
                       onBlur={handleBlur}
-                      onChange={handleChange}
+                      onChange={(e) => {
+                        setSelectedDatabaseType(e.target.value);
+                        handleChange(e);
+                      }}
                       value={values.databaseType}
                       name="databaseType"
                       error={!!touched.databaseType && !!errors.databaseType}
@@ -90,16 +93,27 @@ export const Experiment = () => {
                       <MenuItem value="2">Redis</MenuItem>
                       <MenuItem value="3">Memcached</MenuItem>
                   </TextField>
-                  <TextareaAutosize
-                    placeholder="Insert your query here..."
-                    onBlur={handleBlur}
-                    onChange={handleChange}
-                    value={values.query}
-                    id="query"
-                    name="query"
-                    variant="filled"
-                    style={{ width: '30%', height: '60px', backgroundColor: 'transparent', color: 'white' }}
-                  />
+                  <TextField
+                      className="input"
+                      variant="filled"
+                      id="select"
+                      label="ExperimentType"
+                      onBlur={handleBlur}
+                      onChange={handleChange}
+                      value={values.experimentType}
+                      name="experimentType"
+                      error={!!touched.experimentType && !!errors.experimentType}
+                      helperText={touched.experimentType && errors.experimentType}
+                      select
+                    >
+                      <MenuItem value="1">Select Products from Basket by BasketId</MenuItem>
+                      <MenuItem value="2">Select Products from Basket for each User</MenuItem>
+                      <MenuItem value="3">Count Total Price and Quantity for the Basket</MenuItem>
+                      <MenuItem value="4">Get Smartphones from the Catalog</MenuItem>
+                      <MenuItem value="5">Get Products with Price option</MenuItem>
+                      <MenuItem value="6">Get Apple Products with Filtered Price</MenuItem>
+                      <MenuItem value="7">Count Total Paid Orders' Price for each User</MenuItem>
+                  </TextField>
                   <TextField
                     className="input"
                     variant="filled"
@@ -112,22 +126,22 @@ export const Experiment = () => {
                     error={!!touched.queryExecutionNumber && !!errors.queryExecutionNumber}
                     helperText={touched.queryExecutionNumber && errors.queryExecutionNumber}
                   />
-                  <TextField
-                      className="input"
-                      variant="filled"
-                      id="select"
-                      label="IsCacheCleaned"
-                      onBlur={handleBlur}
-                      onChange={handleChange}
-                      value={values.isCacheCleaned}
-                      name="isCacheCleaned"
-                      error={!!touched.isCacheCleaned && !!errors.isCacheCleaned}
-                      helperText={touched.isCacheCleaned && errors.isCacheCleaned}
-                      select
+                  { selectedDatabaseType === "1" && (
+                    <TextField
+                    className="input"
+                    variant="filled"
+                    id="select"
+                    label="IsCacheCleaned"
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                    value={values.isCacheCleaned}
+                    name="isCacheCleaned"
+                    select
                     >
                       <MenuItem value="true">True</MenuItem>
-                      <MenuItem value="False">False</MenuItem>
+                      <MenuItem value="false">False</MenuItem>
                   </TextField>
+                  )}
                 </Box>
                 <Box display="flex" justifyContent="flex-start" mt="30px" gap="50px">
                   <Button type="submit" color="secondary" variant="contained">

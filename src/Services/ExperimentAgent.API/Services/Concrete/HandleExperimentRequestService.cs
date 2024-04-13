@@ -24,7 +24,7 @@ public class HandleExperimentRequestService : IHandleExperimentRequestService
         switch (request.DatabaseType)
         {
             case DatabaseType.MSSQL:
-                GetSqlServerExecutionRequest executionRequestEvent = new() { Query = request.Query, QueryExecutionNumber = request.QueryExecutionNumber, IsCacheCleaned = request.IsCacheCleaned };
+                GetSqlServerExecutionRequest executionRequestEvent = new() { ExperimentType = request.ExperimentType, QueryExecutionNumber = request.QueryExecutionNumber, IsCacheCleaned = request.IsCacheCleaned };
                 
                 Response<GetSqlServerExecutionResponse> sqlServerResponse = await _sqlRequestClient.GetResponse<GetSqlServerExecutionResponse>(executionRequestEvent, cancellationToken);
                 experimentResult = _mapper.Map<ExperimentResult>(sqlServerResponse.Message);
@@ -32,8 +32,14 @@ public class HandleExperimentRequestService : IHandleExperimentRequestService
                 await ManageInternalDatabase(request, experimentResult);
                 break;
             case DatabaseType.Redis:
+                GetRedisExecutionRequest executionRedisRequest = new() { ExperimentType = request.ExperimentType, QueryExecutionNumber = request.QueryExecutionNumber };
+                
+                Response<GetRedisExecutionResponse> redisResponse = await _redisRequestClient.GetResponse<GetRedisExecutionResponse>(executionRedisRequest, cancellationToken);
+                experimentResult = _mapper.Map<ExperimentResult>(redisResponse.Message);
+                
+                await ManageInternalDatabase(request, experimentResult);
                 break;
-            case DatabaseType.Memcached:
+            case DatabaseType.MongoDb:
                 break;
             default:
                 throw new ArgumentOutOfRangeException();
@@ -44,22 +50,24 @@ public class HandleExperimentRequestService : IHandleExperimentRequestService
 
     private async Task ManageInternalDatabase(ExperimentRequest request, ExperimentResult experimentResult)
     {
+        ExperimentOutcome outcome = new()
+        {
+            Id = Guid.NewGuid(),
+            Query = experimentResult.Query,
+            DatabaseType = request.DatabaseType,
+            IsExecutedFromCache = experimentResult.IsExecutedFromCache,
+            QueryExecutionNumber = experimentResult.QueryExecutionNumber,
+            QueryExecutionTime = experimentResult.QueryExecutionTime
+        };
+
         if (experimentResult.IsExecutedFromCache)
         {
-            ExperimentOutcome outcome = new()
-            {
-                Id = Guid.NewGuid(),
-                Query = request.Query,
-                DatabaseType = request.DatabaseType,
-                QueryExecutionNumber = experimentResult.QueryExecutionNumber,
-                CacheHitRate = experimentResult.CacheHitRate,
-                CacheMissRate = experimentResult.CacheMissRate,
-                QueryExecutionTime = experimentResult.QueryExecutionTime,
-                Resources = experimentResult.Resources,
-                CacheSize = experimentResult.CacheSize
-            };
-
-            await _unitOfWork.ExperimentOutcomes.InsertOneAsync(outcome);
+            outcome.CacheHitRate = experimentResult.CacheHitRate;
+            outcome.CacheMissRate = experimentResult.CacheMissRate;
+            outcome.Resources = experimentResult.Resources;
+            outcome.CacheSize = experimentResult.CacheSize;
         }
+        
+        await _unitOfWork.ExperimentOutcomes.InsertOneAsync(outcome);
     }
 }

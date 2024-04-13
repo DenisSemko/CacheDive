@@ -40,6 +40,50 @@ public static class Constants
                 SELECT (sum(size_in_bytes) / 1024) AS 'Procedure Cache Size (MB)'
                 FROM sys.dm_exec_cached_plans;";
 
+        public const string SelectProductsByBasketId = @"SELECT p.Id AS Product_Id, p.Name as Product_Name, 
+                   pb.Quantity, 
+                   b.Id AS Basket_Id 
+            FROM Products p 
+            JOIN ProductBaskets pb ON p.Id = pb.ProductId 
+            JOIN Baskets b ON pb.BasketId = b.Id 
+            WHERE b.Id = '6c780439-2b12-44d4-866f-bc1b500fab55';";
+
+        public const string SelectProductsByUserId = @"
+            SELECT p.Id, p.Name, pb.Quantity, u.Id 
+            FROM Products p 
+            JOIN ProductBaskets pb on p.Id = pb.ProductId 
+            JOIN Baskets b on pb.BasketId = b.Id 
+            JOIN Users u on b.UserId = u.Id;";
+
+        public const string CountTotalPriceTotalQuantityByBasketId = @"
+            SELECT SUM(pb.Price * pb.Quantity)  
+            FROM ProductBaskets pb 
+            JOIN Baskets b ON pb.BasketId = b.Id 
+            WHERE b.Id = '6c780439-2b12-44d4-866f-bc1b500fab55';";
+
+        public const string SelectProductsByCategory = @"
+            SELECT p.Id, p.Name 
+            FROM Products p  
+            JOIN Categories c ON p.CategoryId = c.Id 
+            WHERE c.Name = 'Smartphones' ORDER BY p.Price;";
+
+        public const string SelectProductsWithPriceFiltered = @"
+            SELECT p.Id, p.NAME  
+            FROM Products p 
+            WHERE p.Price > 1000.99 AND Price < 1799.00;";
+
+        public const string SelectProductsWithLikeFiltering = @"
+            SELECT p.Id, p.Name 
+            FROM Products p 
+            WHERE p.NAME LIKE '%Apple%' AND p.Price BETWEEN 1000.00 AND 2000.00 
+            ORDER BY p.Name;";
+
+        public const string SumTotalOrderPrice = @"
+            SELECT SUM(o.TotalPrice), u.Name, u.Email 
+            FROM Orders o 
+            JOIN Users u ON u.Id = o.UserId 
+            WHERE o.OrderStatus = 4
+            GROUP BY u.Name, u.Email;";
     }
 
     public static class QueryPlan
