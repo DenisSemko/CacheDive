@@ -12,5 +12,6 @@ public class Order
     public ShippingType ShippingType { get; set; }
     public PaymentType PaymentType { get; set; }
     public string ShippingAddress { get; set; }
+    [BsonRepresentation(BsonType.String)]
     public Guid UserId { get; set; }
 }

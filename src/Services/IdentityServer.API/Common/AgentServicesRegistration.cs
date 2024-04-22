@@ -2,7 +2,7 @@ namespace IdentityServer.API.Common;
 
 public static class AgentServicesRegistration
 {
-    public static IServiceCollection AddAgentService(this IServiceCollection services,
+    public static IServiceCollection AddAgentServices(this IServiceCollection services,
         ConfigurationManager configuration)
     {
         services.AddAutoMapper(Assembly.GetExecutingAssembly());

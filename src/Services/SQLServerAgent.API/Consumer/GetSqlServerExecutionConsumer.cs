@@ -58,7 +58,8 @@ public class GetSqlServerExecutionConsumer : IConsumer<GetSqlServerExecutionRequ
             {
                 Query = query,
                 IsExecutedFromCache = false,
-                QueryExecutionTime = resultTime.ToString()
+                QueryExecutionTime = resultTime.ToString(),
+                Resources = ""
             });
         }
     }

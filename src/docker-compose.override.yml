@@ -49,6 +49,14 @@ services:
       - "6379:6379"
     volumes:
       - redis-db:/var/opt/redis
+  
+  mongodb:
+    container_name: mongodb
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-db:/var/opt/mongo
 
   sqlserveragent.api:
     container_name: sqlserveragent.api

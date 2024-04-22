@@ -1,4 +1,4 @@
-namespace RedisAgent.API.Entities;
+namespace MongoAgent.API.Entities;
 
 [BsonCollection("Product")]
 public class Product
@@ -11,5 +11,6 @@ public class Product
     public double Price { get; set; }
     public string Image { get; set; }
     public int Quantity { get; set; }
+    [BsonRepresentation(BsonType.String)]
     public Guid CategoryId { get; set; }
 }

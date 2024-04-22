@@ -8,5 +8,6 @@ public class Basket
     public Guid Id { get; set; }
     public int TotalQuantity { get; set; }
     public double TotalPrice { get; set; }
+    [BsonRepresentation(BsonType.String)]
     public Guid UserId { get; set; }
 }
