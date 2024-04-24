@@ -61,15 +61,15 @@ export const ModalExperimentResult = ({ open, onClose, values }) => {
             <TextField
                 className="input"
                 variant="filled"
-                label="Query Execution Time"
-                value={values.queryExecutionTime}
-                name="queryExecutionTime"
+                label="Experiment Execution Time"
+                value={values.experimentExecutionTime}
+                name="experimentExecutionTime"
                 disabled
             />
             <TextField
                 className="input"
                 variant="filled"
-                label="Resources: Size of the cache plan (kb), CPU compile time (ms), amount of memory used for the query (kb)"
+                label="Resources: Size of the cache plan (kb), CPU compile time / Driver time (ms), amount of memory used for the query (kb)"
                 value={values.resources}
                 name="resources"
                 disabled

@@ -47,7 +47,7 @@ public class GetSqlServerExecutionConsumer : IConsumer<GetSqlServerExecutionRequ
                 QueryExecutionNumber = context.Message.QueryExecutionNumber,
                 CacheHitRate = result.CacheHitRate,
                 CacheMissRate = result.CacheMissRate,
-                QueryExecutionTime = resultTime.ToString(),
+                ExperimentExecutionTime = resultTime.ToString(),
                 Resources = result.Resources,
                 CacheSize = result.CacheSize
             });
@@ -58,7 +58,7 @@ public class GetSqlServerExecutionConsumer : IConsumer<GetSqlServerExecutionRequ
             {
                 Query = query,
                 IsExecutedFromCache = false,
-                QueryExecutionTime = resultTime.ToString(),
+                ExperimentExecutionTime = resultTime.ToString(),
                 Resources = ""
             });
         }

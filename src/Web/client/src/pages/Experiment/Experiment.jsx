@@ -51,7 +51,7 @@ export const Experiment = () => {
     databaseType: "",
     experimentType: "",
     queryExecutionNumber: 0,
-    isCacheCleaned: ""
+    isCacheCleaned: "false"
   };
 
   const checkoutSchema = yup.object().shape({
@@ -91,7 +91,7 @@ export const Experiment = () => {
                     >
                       <MenuItem value="1">MSSQL</MenuItem>
                       <MenuItem value="2">Redis</MenuItem>
-                      <MenuItem value="3">Memcached</MenuItem>
+                      <MenuItem value="3">MongoDb</MenuItem>
                   </TextField>
                   <TextField
                       className="input"
@@ -126,7 +126,7 @@ export const Experiment = () => {
                     error={!!touched.queryExecutionNumber && !!errors.queryExecutionNumber}
                     helperText={touched.queryExecutionNumber && errors.queryExecutionNumber}
                   />
-                  { selectedDatabaseType === "1" && (
+                  { selectedDatabaseType != "2" && (
                     <TextField
                     className="input"
                     variant="filled"

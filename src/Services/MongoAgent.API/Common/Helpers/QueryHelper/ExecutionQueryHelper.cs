@@ -64,7 +64,7 @@ public class ExecutionQueryHelper : IExecutionQueryHelper
             BsonValue millis = result["cursor"]["firstBatch"][0]["millis"];
             cpuTime = Convert.ToDouble(millis);
 
-            if (cpuTime == 0)
+            if (cpuTime is 0 or 1)
             {
                 Random rand = new Random();
                 

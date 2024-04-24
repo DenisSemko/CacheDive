@@ -63,7 +63,7 @@ public class HandleExperimentRequestService : IHandleExperimentRequestService
             DatabaseType = request.DatabaseType,
             IsExecutedFromCache = experimentResult.IsExecutedFromCache,
             QueryExecutionNumber = experimentResult.QueryExecutionNumber,
-            QueryExecutionTime = experimentResult.QueryExecutionTime
+            ExperimentExecutionTime = experimentResult.ExperimentExecutionTime
         };
 
         if (experimentResult.IsExecutedFromCache)

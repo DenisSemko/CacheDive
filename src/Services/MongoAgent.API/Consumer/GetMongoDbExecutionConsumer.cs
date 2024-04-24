@@ -179,7 +179,7 @@ public class GetMongoDbExecutionConsumer : IConsumer<GetMongoDbExecutionRequest>
             IsExecutedFromCache = commandStats.IsExecutedFromCache,
             CacheHitRate = cacheStats.CacheHitRate,
             CacheMissRate = cacheStats.CacheMissRate,
-            QueryExecutionTime = resultTime.ToString(),
+            ExperimentExecutionTime = resultTime.ToString(),
             Resources = commandStats.Resources,
             CacheSize = cacheStats.CacheSize
         });
