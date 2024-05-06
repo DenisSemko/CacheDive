@@ -4,7 +4,7 @@ services:
   sqlserverdb:
     container_name: sqlserverdb
     environment:
-      SA_PASSWORD: "mcbv3n12!"
+      SA_PASSWORD: ""
       ACCEPT_EULA: "Y"
     restart: always
     ports:
@@ -22,9 +22,9 @@ services:
   experimentdb:
     container_name: experimentdb
     environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=CacheDiveExperimentDb
+      - POSTGRES_USER=
+      - POSTGRES_PASSWORD=
+      - POSTGRES_DB=
     restart: always
     ports:
       - "5432:5432"
@@ -34,8 +34,8 @@ services:
   pgadmin:
     container_name: pgadmin
     environment:
-      - PGADMIN_DEFAULT_EMAIL=admin@cachedive.com
-      - PGADMIN_DEFAULT_PASSWORD=postgres
+      - PGADMIN_DEFAULT_EMAIL=
+      - PGADMIN_DEFAULT_PASSWORD=
     restart: always
     ports:
       - "5050:80"
