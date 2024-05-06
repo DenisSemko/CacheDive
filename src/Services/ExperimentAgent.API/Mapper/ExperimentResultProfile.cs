@@ -6,5 +6,6 @@ public class ExperimentResultProfile : Profile
     {
         CreateMap<GetSqlServerExecutionResponse, ExperimentResult>();
         CreateMap<GetRedisExecutionResponse, ExperimentResult>();
+        CreateMap<GetMongoDbExecutionResponse, ExperimentResult>();
     }   
 }

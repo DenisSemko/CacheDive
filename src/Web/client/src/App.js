@@ -10,6 +10,7 @@ import { Login } from "./pages/Login";
 import { Dashboard } from "./pages/Dashboard";
 import { Config } from "./pages/Config";
 import { Experiment } from "./pages/Experiment";
+import { Analytics } from "./pages/Analytics";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -34,6 +35,7 @@ export const App = () => {
               <Route path="/dashboard" element={<Dashboard />}/>
               <Route path="/configuration" element={<Config />}/>
               <Route path="/experiment" element={<Experiment />}/>
+              <Route path="/analytics" element={<Analytics />}/>
             </Routes>
             <ToastContainer position="top-right" autoClose={5000} />
           </main>

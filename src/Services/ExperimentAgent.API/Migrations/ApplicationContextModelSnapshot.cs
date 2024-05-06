@@ -40,6 +40,13 @@ namespace ExperimentAgent.API.Migrations
                     b.Property<int>("DatabaseType")
                         .HasColumnType("integer");
 
+                    b.Property<string>("ExperimentExecutionTime")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("ExperimentType")
+                        .HasColumnType("integer");
+
                     b.Property<bool>("IsExecutedFromCache")
                         .HasColumnType("boolean");
 
@@ -49,10 +56,6 @@ namespace ExperimentAgent.API.Migrations
 
                     b.Property<int>("QueryExecutionNumber")
                         .HasColumnType("integer");
-
-                    b.Property<string>("QueryExecutionTime")
-                        .IsRequired()
-                        .HasColumnType("text");
 
                     b.Property<string>("Resources")
                         .IsRequired()

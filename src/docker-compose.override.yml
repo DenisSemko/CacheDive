@@ -49,76 +49,84 @@ services:
       - "6379:6379"
     volumes:
       - redis-db:/var/opt/redis
-
-  sqlserveragent.api:
-    container_name: sqlserveragent.api
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - "ConnectionStrings:DefaultConnection="
-      - "EventBusSettings:HostAddress="
+  
+  mongodb:
+    container_name: mongodb
     restart: always
     ports:
-      - "8002:80"
-      - "8003:443"
-
-  redisagent.api:
-    container_name: redisagent.api
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-    restart: always
-    ports:
-      - "8004:80"
-      - "8005:443"
-
-  memcachedagent.api:
-    container_name: memcachedagent.api
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-    restart: always
-    ports:
-      - "8006:80"
-      - "8007:443"
-
-  configagent.api:
-    container_name: configagent.api
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - "EventBusSettings:HostAddress="
-    restart: always
-    ports:
-      - "8008:80"
-      - "8009:443"
-
-  experimentagent.api:
-    container_name: experimentagent.api
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - "ConnectionStrings:DefaultConnection="
-      - "EventBusSettings:HostAddress="
-    restart: always
-    ports:
-      - "8010:80"
-      - "8011:443"
-
-  identityagent.api:
-    container_name: identityagent.api
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - "ConnectionStrings:DefaultConnection="
-    restart: always
-    ports:
-      - "8012:80"
-      - "8013:443"
+      - "27017:27017"
     volumes:
-      - .src/SharedConfig:/app/SharedConfig
+      - mongo-db:/var/opt/mongo
 
-  apigateway:
-    container_name: apigateway
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-    restart: always
-    ports:
-      - "8000:80"
-      - "8001:443"
-    volumes:
-      - .src/SharedConfig:/app/SharedConfig
+#  sqlserveragent.api:
+#    container_name: sqlserveragent.api
+#    environment:
+#      - ASPNETCORE_ENVIRONMENT=Development
+#      - "ConnectionStrings:DefaultConnection="
+#      - "EventBusSettings:HostAddress="
+#    restart: always
+#    ports:
+#      - "8002:80"
+#      - "8003:443"
+#
+#  redisagent.api:
+#    container_name: redisagent.api
+#    environment:
+#      - ASPNETCORE_ENVIRONMENT=Development
+#    restart: always
+#    ports:
+#      - "8004:80"
+#      - "8005:443"
+#
+#  memcachedagent.api:
+#    container_name: memcachedagent.api
+#    environment:
+#      - ASPNETCORE_ENVIRONMENT=Development
+#    restart: always
+#    ports:
+#      - "8006:80"
+#      - "8007:443"
+#
+#  configagent.api:
+#    container_name: configagent.api
+#    environment:
+#      - ASPNETCORE_ENVIRONMENT=Development
+#      - "EventBusSettings:HostAddress="
+#    restart: always
+#    ports:
+#      - "8008:80"
+#      - "8009:443"
+#
+#  experimentagent.api:
+#    container_name: experimentagent.api
+#    environment:
+#      - ASPNETCORE_ENVIRONMENT=Development
+#      - "ConnectionStrings:DefaultConnection="
+#      - "EventBusSettings:HostAddress="
+#    restart: always
+#    ports:
+#      - "8010:80"
+#      - "8011:443"
+#
+#  identityagent.api:
+#    container_name: identityagent.api
+#    environment:
+#      - ASPNETCORE_ENVIRONMENT=Development
+#      - "ConnectionStrings:DefaultConnection="
+#    restart: always
+#    ports:
+#      - "8012:80"
+#      - "8013:443"
+#    volumes:
+#      - .src/SharedConfig:/app/SharedConfig
+#
+#  apigateway:
+#    container_name: apigateway
+#    environment:
+#      - ASPNETCORE_ENVIRONMENT=Development
+#    restart: always
+#    ports:
+#      - "8000:80"
+#      - "8001:443"
+#    volumes:
+#      - .src/SharedConfig:/app/SharedConfig

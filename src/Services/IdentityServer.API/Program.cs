@@ -3,7 +3,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddCors();
 builder.Configuration.AddJsonFile(Path.Combine(Directory.GetCurrentDirectory(), "../../SharedConfig", "Config.json"), true, true);
-builder.Services.AddAgentService(builder.Configuration);
+builder.Services.AddAgentServices(builder.Configuration);
 
 builder.Services.AddControllers().AddJsonOptions(x =>
 {

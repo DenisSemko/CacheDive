@@ -5,7 +5,7 @@ builder.Services.AddAgentService(builder.Configuration);
 builder.Services.AddMassTransit(configuration => {
     configuration.AddRequestClient<GetSqlServerExecutionRequest>();
     configuration.AddRequestClient<GetRedisExecutionRequest>();
-    configuration.AddRequestClient<GetMemcachedExecutionRequest>();
+    configuration.AddRequestClient<GetMongoDbExecutionRequest>();
     
     configuration.UsingRabbitMq((context, configurator) => {
         configurator.Host(builder.Configuration["EventBusSettings:HostAddress"]);
