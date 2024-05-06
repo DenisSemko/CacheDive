@@ -44,6 +44,9 @@ namespace ExperimentAgent.API.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<int>("ExperimentType")
+                        .HasColumnType("integer");
+
                     b.Property<bool>("IsExecutedFromCache")
                         .HasColumnType("boolean");
 

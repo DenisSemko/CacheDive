@@ -64,6 +64,66 @@
       "UpstreamHttpMethod": [ "DELETE" ]
     },
     {
+      "DownstreamPathTemplate": "/api/Analytics/experiment-per-database",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": "7109"
+        }
+      ],
+      "UpstreamPathTemplate": "/Analytics/experiment-per-database",
+      "UpstreamHttpMethod": [ "GET"]
+    },
+    {
+      "DownstreamPathTemplate": "/api/Analytics/execution-time-per-experiment",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": "7109"
+        }
+      ],
+      "UpstreamPathTemplate": "/Analytics/execution-time-per-experiment",
+      "UpstreamHttpMethod": [ "GET"]
+    },
+    {
+      "DownstreamPathTemplate": "/api/Analytics/cache-hit-per-database",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": "7109"
+        }
+      ],
+      "UpstreamPathTemplate": "/Analytics/cache-hit-per-database",
+      "UpstreamHttpMethod": [ "GET"]
+    },
+    {
+      "DownstreamPathTemplate": "/api/Analytics/cache-miss-per-database",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": "7109"
+        }
+      ],
+      "UpstreamPathTemplate": "/Analytics/cache-miss-per-database",
+      "UpstreamHttpMethod": [ "GET"]
+    },
+    {
+      "DownstreamPathTemplate": "/api/Analytics/driver-time-per-experiment",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": "7109"
+        }
+      ],
+      "UpstreamPathTemplate": "/Analytics/driver-time-per-experiment",
+      "UpstreamHttpMethod": [ "GET"]
+    },
+    {
       "DownstreamPathTemplate": "/api/Auth/login",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [

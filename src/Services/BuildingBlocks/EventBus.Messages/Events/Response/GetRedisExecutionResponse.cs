@@ -2,6 +2,7 @@ namespace EventBus.Messages.Events.Response;
 
 public class GetRedisExecutionResponse : IntegrationBaseEvent
 {
+    public ExperimentType ExperimentType { get; set; }
     public string Query { get; set; } = "Query is not applied";
     public int QueryExecutionNumber { get; set; }
     public bool IsExecutedFromCache { get; set; } = true;

@@ -5,6 +5,7 @@ public class ExperimentOutcome
     public Guid Id { get; set; }
     public string Query { get; set; }
     public DatabaseType DatabaseType { get; set; }
+    public ExperimentType ExperimentType { get; set; }
     public int QueryExecutionNumber { get; set; }
     public bool IsExecutedFromCache { get; set; }
     public double CacheHitRate { get; set; }

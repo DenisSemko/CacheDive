@@ -19,63 +19,63 @@ services:
   mongodb:
     image: mongo
   
-  sqlserveragent.api:
-    image: sqlserveragent.api
-    build:
-      context: .
-      dockerfile: Services/SQLServerAgent.API/Dockerfile
-    depends_on: 
-      - sqlserverdb
-      - rabbitmq
-
-  redisagent.api:
-    image: redisagent.api
-    build:
-      context: .
-      dockerfile: Services/RedisAgent.API/Dockerfile
-
-  memcachedagent.api:
-    image: memcachedagent.api
-    build:
-      context: .
-      dockerfile: Services/MemcachedAgent.API/Dockerfile
-
-  configagent.api:
-    image: configagent.api
-    build:
-      context: .
-      dockerfile: Services/ConfigAgent.API/Dockerfile
-    depends_on: 
-      - rabbitmq
-      - sqlserveragent.api
-
-  experimentagent.api:
-    image: experimentagent.api
-    build:
-      context: .
-      dockerfile: Services/ExperimentAgent.API/Dockerfile
-    depends_on:
-      - rabbitmq
-      - sqlserveragent.api
-      - experimentdb
-
-  identityagent.api:
-    image: identityagent.api
-    build:
-      context: .
-      dockerfile: Services/IdentityServer.API/Dockerfile
-    depends_on:
-      - sqlserverdb
-
-  apigateway:
-    image: apigateway
-    build:
-      context: .
-      dockerfile: ApiGateway/OcelotApiGateway/Dockerfile
-    depends_on:
-      - configagent.api
-      - experimentagent.api
-      - identityagent.api
+#  sqlserveragent.api:
+#    image: sqlserveragent.api
+#    build:
+#      context: .
+#      dockerfile: Services/SQLServerAgent.API/Dockerfile
+#    depends_on: 
+#      - sqlserverdb
+#      - rabbitmq
+#
+#  redisagent.api:
+#    image: redisagent.api
+#    build:
+#      context: .
+#      dockerfile: Services/RedisAgent.API/Dockerfile
+#
+#  memcachedagent.api:
+#    image: memcachedagent.api
+#    build:
+#      context: .
+#      dockerfile: Services/MemcachedAgent.API/Dockerfile
+#
+#  configagent.api:
+#    image: configagent.api
+#    build:
+#      context: .
+#      dockerfile: Services/ConfigAgent.API/Dockerfile
+#    depends_on: 
+#      - rabbitmq
+#      - sqlserveragent.api
+#
+#  experimentagent.api:
+#    image: experimentagent.api
+#    build:
+#      context: .
+#      dockerfile: Services/ExperimentAgent.API/Dockerfile
+#    depends_on:
+#      - rabbitmq
+#      - sqlserveragent.api
+#      - experimentdb
+#
+#  identityagent.api:
+#    image: identityagent.api
+#    build:
+#      context: .
+#      dockerfile: Services/IdentityServer.API/Dockerfile
+#    depends_on:
+#      - sqlserverdb
+#
+#  apigateway:
+#    image: apigateway
+#    build:
+#      context: .
+#      dockerfile: ApiGateway/OcelotApiGateway/Dockerfile
+#    depends_on:
+#      - configagent.api
+#      - experimentagent.api
+#      - identityagent.api
 
 volumes:
   sqlserver-db:

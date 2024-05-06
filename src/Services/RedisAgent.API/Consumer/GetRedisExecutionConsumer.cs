@@ -41,7 +41,7 @@ public class GetRedisExecutionConsumer : IConsumer<GetRedisExecutionRequest>
                         if (keysMemoryUsage is not null)
                         {
                             double value = keysMemoryUsage.GetValue(anonObj);
-                            resources =  Math.Round(value, 2) + " kb;";
+                            resources =  Math.Round(value, 2) + "kb;";
                             resources = resources.Replace(',', '.');
                         }
 
@@ -50,7 +50,7 @@ public class GetRedisExecutionConsumer : IConsumer<GetRedisExecutionRequest>
                             TimeSpan value = executionTime.GetValue(anonObj);
                             double milliseconds = value.TotalMilliseconds;
                             string millisecondsStr = Math.Round(milliseconds, 2).ToString().Replace(',', '.');
-                            resources +=  $"{millisecondsStr} ms;";
+                            resources +=  $"{millisecondsStr}ms;";
                         }
                     }
                 }
@@ -76,14 +76,22 @@ public class GetRedisExecutionConsumer : IConsumer<GetRedisExecutionRequest>
                     {
                         Type type = anonObj.GetType();
                         PropertyInfo? keysMemoryUsage = type.GetProperty("KeysMemoryUsage");
+                        PropertyInfo? executionTime = type.GetProperty("ExecutionTime");
 
                         if (keysMemoryUsage is not null)
                         {
                             double value = keysMemoryUsage.GetValue(anonObj);
-                            resources =  Math.Round(value, 3) + " kb";
+                            resources =  Math.Round(value, 3) + "kb;";
                             resources = resources.Replace(',', '.');
                         }
                         
+                        if (executionTime is not null)
+                        {
+                            TimeSpan value = executionTime.GetValue(anonObj);
+                            double milliseconds = value.TotalMilliseconds;
+                            string millisecondsStr = Math.Round(milliseconds, 2).ToString().Replace(',', '.');
+                            resources +=  $"{millisecondsStr}ms;";
+                        }
                     }
                 }
                 else
@@ -105,11 +113,19 @@ public class GetRedisExecutionConsumer : IConsumer<GetRedisExecutionRequest>
                     cacheMissRate = 0;
 
                     dynamic? keysMemoryUsage = basketThirdQueryResult.KeysMemoryUsage;
+                    dynamic? executionTime = basketThirdQueryResult.ExecutionTime;
                     
                     if (keysMemoryUsage is not null)
                     {
-                        resources =  Math.Round(keysMemoryUsage, 3) + " kb";
+                        resources =  Math.Round(keysMemoryUsage, 3) + "kb;";
                         resources = resources.Replace(',', '.');
+                    }
+                    
+                    if (executionTime is not null)
+                    {
+                        double milliseconds = executionTime.TotalMilliseconds;
+                        string millisecondsStr = Math.Round(milliseconds, 2).ToString().Replace(',', '.');
+                        resources +=  $"{millisecondsStr}ms;";
                     }
                 }
                 else
@@ -134,14 +150,22 @@ public class GetRedisExecutionConsumer : IConsumer<GetRedisExecutionRequest>
                     {
                         Type type = anonObj.GetType();
                         PropertyInfo? keysMemoryUsage = type.GetProperty("KeysMemoryUsage");
+                        PropertyInfo? executionTime = type.GetProperty("ExecutionTime");
 
                         if (keysMemoryUsage is not null)
                         {
                             double value = keysMemoryUsage.GetValue(anonObj);
-                            resources =  Math.Round(value, 3) + " kb";
+                            resources =  Math.Round(value, 3) + "kb;";
                             resources = resources.Replace(',', '.');
                         }
                         
+                        if (executionTime is not null)
+                        {
+                            TimeSpan value = executionTime.GetValue(anonObj);
+                            double milliseconds = value.TotalMilliseconds;
+                            string millisecondsStr = Math.Round(milliseconds, 2).ToString().Replace(',', '.');
+                            resources +=  $"{millisecondsStr}ms;";
+                        }
                     }
                 }
                 else
@@ -171,14 +195,16 @@ public class GetRedisExecutionConsumer : IConsumer<GetRedisExecutionRequest>
                         if (keysMemoryUsage is not null)
                         {
                             double value = keysMemoryUsage.GetValue(anonObj);
-                            resources =  Math.Round(value, 3) + " kb;";
+                            resources =  Math.Round(value, 3) + "kb;";
                             resources = resources.Replace(',', '.');
                         }
 
                         if (executionTime is not null)
                         {
-                            long value = keysMemoryUsage.GetValue(anonObj);
-                            resources +=  $"{value} ms;";
+                            TimeSpan value = executionTime.GetValue(anonObj);
+                            double milliseconds = value.TotalMilliseconds;
+                            string millisecondsStr = Math.Round(milliseconds, 2).ToString().Replace(',', '.');
+                            resources +=  $"{millisecondsStr}ms;";
                         }
                     }
                 }
@@ -204,12 +230,21 @@ public class GetRedisExecutionConsumer : IConsumer<GetRedisExecutionRequest>
                     {
                         Type type = anonObj.GetType();
                         PropertyInfo? keysMemoryUsage = type.GetProperty("KeysMemoryUsage");
+                        PropertyInfo? executionTime = type.GetProperty("ExecutionTime");
 
                         if (keysMemoryUsage is not null)
                         {
                             double value = keysMemoryUsage.GetValue(anonObj);
-                            resources =  Math.Round(value, 3) + " kb";
+                            resources =  Math.Round(value, 3) + "kb;";
                             resources = resources.Replace(',', '.');
+                        }
+                        
+                        if (executionTime is not null)
+                        {
+                            TimeSpan value = executionTime.GetValue(anonObj);
+                            double milliseconds = value.TotalMilliseconds;
+                            string millisecondsStr = Math.Round(milliseconds, 2).ToString().Replace(',', '.');
+                            resources +=  $"{millisecondsStr}ms;";
                         }
                     }
                 }
@@ -235,14 +270,22 @@ public class GetRedisExecutionConsumer : IConsumer<GetRedisExecutionRequest>
                     {
                         Type type = anonObj.GetType();
                         PropertyInfo? keysMemoryUsage = type.GetProperty("KeysMemoryUsage");
+                        PropertyInfo? executionTime = type.GetProperty("ExecutionTime");
 
                         if (keysMemoryUsage is not null)
                         {
                             double value = keysMemoryUsage.GetValue(anonObj);
-                            resources =  Math.Round(value, 3) + " kb";
+                            resources =  Math.Round(value, 3) + "kb;";
                             resources = resources.Replace(',', '.');
                         }
                         
+                        if (executionTime is not null)
+                        {
+                            TimeSpan value = executionTime.GetValue(anonObj);
+                            double milliseconds = value.TotalMilliseconds;
+                            string millisecondsStr = Math.Round(milliseconds, 2).ToString().Replace(',', '.');
+                            resources +=  $"{millisecondsStr}ms;";
+                        }
                     }
                 }
                 else
@@ -257,6 +300,7 @@ public class GetRedisExecutionConsumer : IConsumer<GetRedisExecutionRequest>
         
         await context.RespondAsync(new GetRedisExecutionResponse()
         {
+            ExperimentType = context.Message.ExperimentType,
             QueryExecutionNumber = context.Message.QueryExecutionNumber,
             CacheHitRate = cacheHitRate,
             CacheMissRate = cacheMissRate,

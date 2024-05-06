@@ -97,7 +97,7 @@ public class ExecutionQueryHelper : IExecutionQueryHelper
             }
         }
 
-        return new Result(isExecutedFromCache, $"{Math.Round(pipelineSize, 2)}kb;{Math.Round(cpuTime, 2)}ms;", pipeline);
+        return new Result(isExecutedFromCache, $"{Math.Round(pipelineSize, 2).ToString().Replace(',', '.')}kb;{Math.Round(cpuTime, 2).ToString().Replace(',', '.')}ms;", pipeline);
     }
 
     public async Task<List<BsonDocument>> GetProductsFromBasketByBasketId(string basketId = "6c780439-2b12-44d4-866f-bc1b500fab55")

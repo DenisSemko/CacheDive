@@ -59,6 +59,7 @@ public class HandleExperimentRequestService : IHandleExperimentRequestService
         ExperimentOutcome outcome = new()
         {
             Id = Guid.NewGuid(),
+            ExperimentType = request.ExperimentType,
             Query = experimentResult.Query,
             DatabaseType = request.DatabaseType,
             IsExecutedFromCache = experimentResult.IsExecutedFromCache,
@@ -72,6 +73,10 @@ public class HandleExperimentRequestService : IHandleExperimentRequestService
             outcome.CacheMissRate = experimentResult.CacheMissRate;
             outcome.Resources = experimentResult.Resources;
             outcome.CacheSize = experimentResult.CacheSize;
+        }
+        else
+        {
+            outcome.Resources = "";
         }
         
         await _unitOfWork.ExperimentOutcomes.InsertOneAsync(outcome);

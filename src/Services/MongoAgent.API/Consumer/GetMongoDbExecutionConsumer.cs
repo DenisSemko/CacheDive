@@ -174,6 +174,7 @@ public class GetMongoDbExecutionConsumer : IConsumer<GetMongoDbExecutionRequest>
 
         await context.RespondAsync(new GetMongoDbExecutionResponse()
         {
+            ExperimentType = context.Message.ExperimentType,
             Query = commandStats.Pipeline.ToString(),
             QueryExecutionNumber = context.Message.QueryExecutionNumber,
             IsExecutedFromCache = commandStats.IsExecutedFromCache,

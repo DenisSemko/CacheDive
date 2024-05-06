@@ -33,15 +33,16 @@ public class GetSqlServerExecutionConsumer : IConsumer<GetSqlServerExecutionRequ
 
         string queryPlan = await _executionQueryHelper.ExecuteQueryWithReader(updatedQuery, new List<string>() { Constants.QueryPlan.Title });
 
+        string modifiedQuery = string.Join(" ", query.Split(new[] { '\n', '\t' }, StringSplitOptions.RemoveEmptyEntries));
+        string finalQuery = Regex.Replace(modifiedQuery, @"\s+", " ");
+        
         if (!string.IsNullOrEmpty(queryPlan))
         {
             Result result = await _executionQueryHelper.ExamineQueryCachePlan(queryPlan, query);
             
-            string modifiedQuery = string.Join(" ", query.Split(new[] { '\n', '\t' }, StringSplitOptions.RemoveEmptyEntries));
-            string finalQuery = Regex.Replace(modifiedQuery, @"\s+", " ");
-
             await context.RespondAsync(new GetSqlServerExecutionResponse()
             {
+                ExperimentType = context.Message.ExperimentType,
                 Query = finalQuery,
                 IsExecutedFromCache = result.IsCached,
                 QueryExecutionNumber = context.Message.QueryExecutionNumber,
@@ -56,7 +57,8 @@ public class GetSqlServerExecutionConsumer : IConsumer<GetSqlServerExecutionRequ
         {
             await context.RespondAsync(new GetSqlServerExecutionResponse()
             {
-                Query = query,
+                ExperimentType = context.Message.ExperimentType,
+                Query = finalQuery,
                 IsExecutedFromCache = false,
                 ExperimentExecutionTime = resultTime.ToString(),
                 Resources = ""
