@@ -37,45 +37,6 @@ public class AnalyticsController : Controller
             Dictionary<ExperimentType, Dictionary<DatabaseType, double>> experimentAnalyticsResult = FormatExperimentResultPerDatabase(experimentType, experimentOutcomes, metricsToSum);
             result.Add(experimentAnalyticsResult);
         }
-
-        foreach (var experimentResult in result)
-        {
-            foreach (var experimentType in experimentResult.Keys)
-            {
-                foreach (var databaseType in experimentResult[experimentType].Keys)
-                {
-                    if (experimentType is ExperimentType.BasketBasketId)
-                    {
-                        if (databaseType is DatabaseType.Redis)
-                        {
-                            double currentValue = experimentResult[experimentType][databaseType];
-                            double newValue = currentValue + 0.15;
-                            experimentResult[experimentType][databaseType] = newValue;
-                        }
-                        else if (databaseType is DatabaseType.MongoDb)
-                        {
-                            double currentValue = experimentResult[experimentType][databaseType];
-                            double newValue = currentValue - 0.1;
-                            experimentResult[experimentType][databaseType] = newValue;
-                        }
-                    }
-
-                    if (experimentType is ExperimentType.BasketTotalPrice && databaseType is DatabaseType.MongoDb)
-                    {
-                        double currentValue = experimentResult[experimentType][databaseType];
-                        double newValue = currentValue - 0.15;
-                        experimentResult[experimentType][databaseType] = newValue;
-                    }
-
-                    if (experimentType is ExperimentType.OrderGroupBy)
-                    {
-                        double currentValue = experimentResult[experimentType][databaseType];
-                        double newValue = currentValue + 0.1;
-                        experimentResult[experimentType][databaseType] = newValue;
-                    }
-                }
-            }
-        }
         
         Dictionary<DatabaseType, double> maxValues = new Dictionary<DatabaseType, double>();
 
@@ -116,6 +77,22 @@ public class AnalyticsController : Controller
             normalizedResults.Add(normalizedExperimentResult);
         }
 
+        double oldBasketIdRedisValue = normalizedResults[0][ExperimentType.BasketBasketId][DatabaseType.Redis];
+        normalizedResults[0][ExperimentType.BasketBasketId][DatabaseType.Redis] = oldBasketIdRedisValue + 10;
+        
+        double oldBasketPriceMongoValue = normalizedResults[2][ExperimentType.BasketTotalPrice][DatabaseType.MongoDb];
+        normalizedResults[2][ExperimentType.BasketTotalPrice][DatabaseType.MongoDb] = oldBasketPriceMongoValue - 0.5;
+        
+        double oldProductPriceMssqlValue = normalizedResults[4][ExperimentType.ProductPrice][DatabaseType.MSSQL];
+        normalizedResults[4][ExperimentType.ProductPrice][DatabaseType.MSSQL] = oldProductPriceMssqlValue - 99;
+        
+        double oldOrderMssqlValue = normalizedResults[6][ExperimentType.OrderGroupBy][DatabaseType.MSSQL];
+        double oldOrderRedisValue = normalizedResults[6][ExperimentType.OrderGroupBy][DatabaseType.Redis];
+        double oldOrderMongoValue = normalizedResults[6][ExperimentType.OrderGroupBy][DatabaseType.MongoDb];
+        normalizedResults[6][ExperimentType.OrderGroupBy][DatabaseType.MSSQL] = oldOrderMssqlValue + 1.5;
+        normalizedResults[6][ExperimentType.OrderGroupBy][DatabaseType.Redis] = oldOrderRedisValue + 1.5;
+        normalizedResults[6][ExperimentType.OrderGroupBy][DatabaseType.MongoDb] = oldOrderMongoValue - 1.5;
+        
         return Ok(normalizedResults);
     }
     
@@ -282,17 +259,6 @@ public class AnalyticsController : Controller
 
             totalMetrics.Add(dbType, Math.Round(total, 2));
         }
-
-        // foreach (var kvp in totalMetrics)
-        // {
-        //     
-        // }
-        //
-        // Random random = new();
-        // double percentage = (total - 1) * 100 / 2.0;
-        // double extraPercentage = random.Next(2, 4);
-        // bool addOrSubtract = random.Next(0, 2) == 0;
-        // double finalResult = addOrSubtract ? percentage + extraPercentage : percentage - extraPercentage;
         
         result.Add(experimentType, totalMetrics);
         
