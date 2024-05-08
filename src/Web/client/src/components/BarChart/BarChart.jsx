@@ -88,7 +88,6 @@ export const BarChart = ({ data, keys, indexBy, axisBottomLegend, axisLeftLegend
                 legendPosition: 'middle',
                 legendOffset: -40
             }}
-            enableLabel={false}
             labelSkipWidth={12}
             labelSkipHeight={12}
             labelTextColor={{ from: 'color', modifiers: [['darker', 1.6]] }}

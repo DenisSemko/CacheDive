@@ -38,8 +38,6 @@ public class AnalyticsController : Controller
             result.Add(experimentAnalyticsResult);
         }
 
-        List<Dictionary<ExperimentType, Dictionary<DatabaseType, double>>> encreasedResult = new();
-        
         foreach (var experimentResult in result)
         {
             foreach (var experimentType in experimentResult.Keys)
@@ -157,20 +155,20 @@ public class AnalyticsController : Controller
     public async Task<ActionResult<List<Dictionary<DatabaseType, double>>>> GetCacheHitPerDatabase()
     {
         Dictionary<DatabaseType, (double totalCacheHit, int experimentCount)> aggregatedMetrics = new();
-
+        
         foreach (ExperimentType experimentType in Enum.GetValues(typeof(ExperimentType)))
         {
             IReadOnlyList<ExperimentOutcome> experimentOutcomes = await _unitOfWork.ExperimentOutcomes.GetAllAsync(experiment => experiment.ExperimentType == experimentType);
 
-            foreach (var experiment in experimentOutcomes)
+            foreach (var outcome in experimentOutcomes)
             {
-                if (!aggregatedMetrics.ContainsKey(experiment.DatabaseType))
+                if (!aggregatedMetrics.ContainsKey(outcome.DatabaseType))
                 {
-                    aggregatedMetrics[experiment.DatabaseType] = (0.0, 0);
+                    aggregatedMetrics[outcome.DatabaseType] = (0.0, 0);
                 }
 
-                var (totalCacheHit, experimentCount) = aggregatedMetrics[experiment.DatabaseType];
-                aggregatedMetrics[experiment.DatabaseType] = (totalCacheHit + experiment.CacheHitRate, experimentCount + 1);
+                var (totalCacheHit, experimentCount) = aggregatedMetrics[outcome.DatabaseType];
+                aggregatedMetrics[outcome.DatabaseType] = (totalCacheHit + outcome.CacheHitRate, experimentCount + 1);
             }
         }
 
@@ -184,7 +182,7 @@ public class AnalyticsController : Controller
                 averageCacheHitMetrics[kvp.Key] = Math.Round(totalCacheHit / experimentCount, 2);
             }
         }
-        
+
         return Ok(averageCacheHitMetrics);
     }
     

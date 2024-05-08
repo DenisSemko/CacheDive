@@ -61,6 +61,8 @@ public class GetSqlServerExecutionConsumer : IConsumer<GetSqlServerExecutionRequ
                 Query = finalQuery,
                 IsExecutedFromCache = false,
                 ExperimentExecutionTime = resultTime.ToString(),
+                CacheHitRate = 0,
+                CacheMissRate = 100,
                 Resources = ""
             });
         }
