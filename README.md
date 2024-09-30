@@ -1,4 +1,4 @@
-<img src="https://github.com/DenisSemko/CacheDive/blob/main/src/Web/client/src/assets/logo.png" alt="logo" title="logo" align="right" height="100" />
+<img src="https://github.com/DenisSemko/CacheDive/blob/main/src/Web/client/src/assets/logo.png" alt="logo" title="logo" align="right" height="80" />
 
 # CacheDive
 > A Deep Dive into Databases Caching
